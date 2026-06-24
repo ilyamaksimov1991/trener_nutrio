@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Завтраки — варианты</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;--p:#2f6fed;--f:#e0a106;--c:#16a34a;--ac:#ea8a0c;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;line-height:1.4;}
+.wrap{max-width:1120px;margin:0 auto;padding:14px;}
+.nav{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;} .nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:20px;margin:0 0 2px;} .subt{color:var(--mut);font-size:12.5px;margin-bottom:12px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:820px){.grid{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;break-inside:avoid;}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;color:#fff;background:linear-gradient(90deg,var(--ac),#d97706);}
+.cn{font-weight:800;font-size:14px;}
+.it{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:2px 11px;border-bottom:1px solid #f3f5f8;}
+.itn{font-size:12.5px;} .itn b{font-weight:700;} .pcs{color:var(--ac);font-weight:700;font-size:11px;}
+.itk{font-size:10.5px;color:var(--mut);white-space:nowrap;}
+.note{padding:6px 11px;font-size:11.5px;color:#9a5a12;background:#fff7ed;background:#fff7ed;}
+.tot{padding:7px 11px;background:#fafbfc;border-top:2px solid var(--ink);font-weight:800;font-size:12px;display:flex;justify-content:space-between;}
+.tot .mac span{margin-left:8px;} .p{color:var(--p);} .f{color:var(--f);} .c{color:var(--c);}
+.intro{background:#fff7ed;border:1px solid #f3d4b3;border-radius:10px;padding:10px 12px;font-size:12.5px;margin-bottom:12px;}
+@media print{.nav{display:none;}@page{size:A4;margin:8mm;}}
+</style></head>
+<body><div class="wrap">
+<div class="nav" id="nav"></div>
+<h1>🍳 Завтраки — варианты</h1>
+<div class="subt">8 вариантов под тебя: без лактозы, мягко для ЖКТ, умеренный жир (Жильбер). Крупы — сухой вес. Грамовка и КБЖУ по каждому продукту.</div>
+<div class="intro">Время завтрака: в тренировочный день — после зала (~09:30), в день отдыха — ~08:30. Можно ставить любой из вариантов в Меню/Конструктор вместо стандартного.</div>
+<div class="grid" id="cards"></div>
+</div>
+
+<script src="products.js"></script>
+<script>
+const M={}; kdGetProducts().forEach(p=>M[p.id]=p);
+const NAV=[["index.html","← Хаб"],["menu_nedeli.html","Меню недели"],["menu_alternativy.html","Альтернативы"],["smuzi.html","Смузи"],["zavtraki.html","Завтраки"],["produkty.html","Продукты"],["konstruktor_dnya.html","Конструктор"]];
+document.getElementById('nav').innerHTML=NAV.map(([h,t])=>`<a href="${h}" class="${h==='zavtraki.html'?'cur':''}">${t}</a>`).join('');
+const R={
+"Овсянка + яйца + киви":[[["ovsjanka",60],["yaico",110],["kivi",75]],"Овсянку сварить на воде/раст. молоке; яйца отварить или омлет на антипригарной; киви сверху."],
+"Сладкая овсянка с бананом":[[["ovsjanka",60],["banan",120],["med",15]],"Сварить овсянку, добавить банан и мёд. Без яиц — лёгкий вариант."],
+"Овсяноблин с бананом":[[["ovsjanka",50],["yaico",110],["banan",120]],"Овсянку смолоть, смешать с яйцами, жарить на антипригарной без масла. Банан внутрь/сверху."],
+"Болтунья + лаваш + помидор":[[["yaico",165],["lavash",60],["pomidor",100],["oil",5]],"Яйца-болтунья на антипригарной с 5 г масла; лаваш и помидор рядом. Сытный белковый."],
+"Йогурт-парфе":[[["bezlakt_yogurt",250],["ovsjanka",40],["yagody",100],["med",15]],"Слоями: безлактозный йогурт + сухая овсянка + ягоды + мёд. Без готовки, можно с вечера."],
+"Рисовая каша на раст. молоке":[[["ris",80],["rast_moloko",250],["banan",120],["med",10]],"Сварить 80 г риса (сух.) на 250 мл раст. молока; банан + мёд. Мягко для ЖКТ."],
+"Тортилья с яйцом и авокадо":[[["kukur_tortilla",80],["yaico",110],["avokado",50],["pomidor",100]],"Яйцо обжарить, завернуть в кукурузную тортилью с авокадо и помидором. Авокадо — жир, потому 50 г."],
+"Творожный боул":[[["bezlakt_tvorog",200],["banan",120],["med",15],["ovsjanka",30]],"Безлактозный творог + банан + мёд + сухая овсянка. Высокий белок, без готовки."]
+};
+function cn(n){return n.replace(/ \\(СУХ[^)]*\\)/,' сух.').replace(' (рис/кукуруза, СУХИЕ)',' (б/глют.) сух.').replace(' (овсяное/кокосовое)','').replace(' (б/глют.)',' б/глют.');}
+function pcs(x,g){if(!x.gpp)return '';const n=Math.round(g/x.gpp*2)/2;return ` <span class="pcs">≈ ${n} шт</span>`;}
+let html='';
+for(const[name,[items,note]]of Object.entries(R)){
+  let t={k:0,p:0,f:0,c:0};
+  let lines=items.map(([id,g])=>{const x=M[id];const r=g/100;const ik=x.k*r,ip=x.p*r,iff=x.f*r,ic=x.cb*r;t.k+=ik;t.p+=ip;t.f+=iff;t.c+=ic;
+    const unit=id==='rast_moloko'?'мл':'г';
+    return `<div class="it"><span class="itn">${cn(x.n)} <b>${Math.round(g)}${unit}</b>${pcs(x,g)}</span><span class="itk">${Math.round(ik)}к · Б${ip.toFixed(0)} Ж${iff.toFixed(0)} У${ic.toFixed(0)}</span></div>`;}).join('');
+  html+=`<section class="card"><div class="ch"><span class="cn">🍳 ${name}</span></div>${lines}<div class="note">👨‍🍳 ${note}</div>
+    <div class="tot"><span>≈ ${Math.round(t.k)} ккал</span><span class="mac"><span class="p">Б${t.p.toFixed(0)}</span><span class="f">Ж${t.f.toFixed(0)}</span><span class="c">У${t.c.toFixed(0)}</span></span></div></section>`;
+}
+document.getElementById('cards').innerHTML=html;
+</script>
+</body></html>
