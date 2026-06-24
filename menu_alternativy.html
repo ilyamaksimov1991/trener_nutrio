@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Альтернативные дни — питание (тест)</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;--p:#2f6fed;--f:#e0a106;--c:#16a34a;--alt:#7c3aed;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;line-height:1.4;}
+.wrap{max-width:1120px;margin:0 auto;padding:14px;}
+.nav{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;} .nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:20px;margin:0 0 2px;} .subt{color:var(--mut);font-size:12.5px;margin-bottom:12px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:820px){.grid{grid-template-columns:1fr;}}
+.day{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;break-inside:avoid;}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;color:#fff;background:linear-gradient(90deg,var(--alt),#9333ea);}
+.dn{font-weight:800;font-size:14px;} .bd{font-size:10px;font-weight:700;}
+.newrow{padding:5px 11px;background:#faf5ff;font-size:11px;color:#6d28d9;border-bottom:1px solid #f0e6ff;}
+.meal{padding:5px 11px;border-bottom:1px solid #f0f2f6;} .meal:last-of-type{border-bottom:none;}
+.mn{font-size:10px;text-transform:uppercase;color:var(--mut);font-weight:700;letter-spacing:.3px;margin-bottom:2px;}
+.mn .tm{color:var(--ink);}
+.it{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:1px 0;}
+.itn{font-size:12.5px;} .itn b{font-weight:700;}
+.nb{display:inline-block;font-size:9px;font-weight:800;background:#ede9fe;color:#6d28d9;border-radius:5px;padding:0 4px;margin-left:3px;}
+.pcs{color:var(--alt);font-weight:700;font-size:11px;}
+.itk{font-size:10.5px;color:var(--mut);white-space:nowrap;}
+.recipe{margin:2px 0 2px 12px;padding:5px 9px;background:#f0f9ff;border-left:3px solid #38bdf8;border-radius:6px;font-size:11.5px;} .recipe b{color:#0369a1;}
+.tot{padding:7px 11px;background:#fafbfc;border-top:2px solid var(--ink);font-weight:800;font-size:12px;display:flex;justify-content:space-between;}
+.tot .mac span{margin-left:8px;} .p{color:var(--p);} .f{color:var(--f);} .c{color:var(--c);}
+.note{background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:10px 12px;font-size:12.5px;margin-bottom:12px;}
+@media print{.nav{display:none;}@page{size:A4;margin:8mm;}}
+</style></head>
+<body><div class="wrap">
+<div class="nav"><a href="index.html">← Хаб</a><a href="konstruktor_dnya.html">Конструктор</a><a href="menu_nedeli.html">Меню недели</a><a class="cur" href="menu_alternativy.html">Альтернативы</a><a href="produkty.html">Продукты</a></div>
+<h1>🧪 Альтернативные дни — чтобы не приедалось</h1>
+<div class="subt">Жизненные порции (крупы ≤100 г сух., картошка/батат ≤280 г, вкусняшки ≤35 г), комфортно для ЖКТ. Без лактозы/глютена, умеренный жир (Жильбер), без сухой грудки. Время приёмов указано. Пробуй по одному дню, отмечай что зашло.</div>
+<div class="note">💜 Дни взаимозаменяемы с обычным меню (~2350–2460 ккал). Понравившийся день собери в Конструкторе и сохрани. Бейдж <span class="nb">новое</span> — продукт, которого не было в основном меню.</div>
+<div class="grid" id="days"></div>
+</div>
+
+<script src="products.js"></script>
+<script>
+const M={}; kdGetProducts().forEach(p=>M[p.id]=p);
+const SMUZI=[["whey",30],["banan",120],["ovsjanka",40],["med",15],["rast_moloko",250]];
+const TIMES=["08:30","11:00","14:00","18:00","20:30"];
+const NEW=new Set(['krevetki','kalmar','midii','kinoa','polenta','kukur_tortilla','avokado','arah_pasta','batat','pechen_kura','tunec','treska','yagody','bezlakt_yogurt','file_indeika']);
+const DAYS={
+"🌊 Морской день|морепродукты, киноа":[["Завтрак",[["ovsjanka",60],["yaico",110],["banan",120]]],["Перекус",[["bezlakt_yogurt",200],["yagody",100],["med",15]]],["Обед 🍬",[["ris",100],["krevetki",160],["pomidor",100],["oil",10],["zefir",35]]],["Ужин 🍬",[["kinoa",100],["kalmar",180],["tush_ovoschi",80],["oil",10],["finiki",30]]],["Протеин",[["whey",30],["banan",120]]]],
+"🌯 Тортилья и тунец|тортилья, авокадо":[["Завтрак",[["ovsjanka",50],["yaico",110],["banan",120],["med",10]]],["Перекус 🥤",[["smuzi",455]]],["Обед 🍬",[["kukur_tortilla",120],["tunec",120],["pomidor",100],["avokado",40],["finiki",25]]],["Ужин 🍬",[["polenta",75],["bedro_kura",120],["tush_ovoschi",80],["oil",10],["pastila",30]]],["Протеин",[["whey",35]]]],
+"🥣 Парфе и печень|йогурт-парфе, ореховая паста":[["Завтрак",[["bezlakt_yogurt",300],["ovsjanka",60],["yagody",100],["med",20]]],["Перекус",[["banan",150],["arah_pasta",15]]],["Обед 🍬",[["grechka",100],["pechen_kura",150],["pomidor",100],["oil",10],["zefir",35]]],["Ужин 🍬",[["ris",100],["treska",150],["tush_ovoschi",80],["oil",10],["finiki",30]]],["Протеин",[["whey",40]]]],
+"🍠 Батат и форель|батат, филе индейки":[["Завтрак",[["ovsjanka",60],["yaico",110],["klubnika",100]]],["Перекус 🥤",[["smuzi",455]]],["Обед 🍬",[["batat",280],["file_indeika",130],["ogurec",80],["oil",10],["finiki",30]]],["Ужин 🍬",[["ris",100],["forel",100],["tush_ovoschi",80],["oil",5],["pastila",30]]],["Протеин",[["whey",40]]]],
+"🍳 Шакшука и мидии|шакшука, мидии, булгур":[["Завтрак",[["yaico",165],["pomidor",150],["lavash",100]]],["Перекус",[["bezlakt_yogurt",200],["banan",120],["finiki",25]]],["Обед 🍬",[["bulgur",100],["midii",200],["pomidor",100],["oil",10],["zefir",35]]],["Ужин 🍬",[["kartofel",280],["kotleti_indeika",120],["tush_ovoschi",80],["oil",10],["marmelad",35]]],["Протеин",[["whey",40]]]]
+};
+function cleanName(n){return n.replace(/ \\(СУХ[^)]*\\)/,' сух.').replace(' (рис/кукуруза, СУХИЕ)',' (б/глют.) сух.').replace(' (СУХАЯ, б/глют.)',' (б/глют.) сух.').replace(/ \\(прот[^)]*\\)/,'').replace(' (овсяное/кокосовое)','').replace(' (натуральная)','').replace(' (б/глют.)',' б/глют.');}
+function pcs(x,g){if(!x.gpp)return '';const n=Math.round(g/x.gpp*2)/2;return ` <span class="pcs">≈ ${n} шт</span>`;}
+let html='';
+for(const[key,meals]of Object.entries(DAYS)){
+  const [name,theme]=key.split('|');
+  let t={k:0,p:0,f:0,c:0};let ms='';let newset=new Set();
+  meals.forEach(([mn,items],idx)=>{
+    let lines=items.map(([id,g])=>{const x=M[id];if(!x)return '';const r=g/100;const ik=x.k*r,ip=x.p*r,iff=x.f*r,ic=x.cb*r;t.k+=ik;t.p+=ip;t.f+=iff;t.c+=ic;
+      if(NEW.has(id))newset.add(cleanName(x.n));
+      let recipe='';
+      if(id==='smuzi'){const lab={whey:'протеин',banan:'банан',ovsjanka:'овсянка сух.',med:'мёд',rast_moloko:'раст. молоко'};
+        const parts=SMUZI.map(([sid,sg])=>{const u=sid==='rast_moloko'?'мл':'г';return `<b>${lab[sid]} ${sg} ${u}</b>`;});
+        recipe=`<div class="recipe">🥤 В блендер: ${parts.join(' · ')}</div>`;}
+      const nm=id==='smuzi'?'Смузи-гейнер':cleanName(x.n);const nb=NEW.has(id)?'<span class="nb">новое</span>':'';
+      return `<div class="it"><span class="itn">${nm}${nb} <b>${Math.round(g)}${id==='smuzi'?'мл':'г'}</b>${pcs(x,g)}</span><span class="itk">${Math.round(ik)}к · Б${ip.toFixed(0)} Ж${iff.toFixed(0)} У${ic.toFixed(0)}</span></div>${recipe}`;}).join('');
+    const tm=TIMES[idx]?`<span class="tm">${TIMES[idx]}</span> · `:'';
+    ms+=`<div class="meal"><div class="mn">${tm}${mn}</div>${lines}</div>`;});
+  html+=`<section class="day"><div class="dh"><span class="dn">${name}</span><span class="bd">${theme}</span></div>
+   <div class="newrow">🆕 новое в этом дне: ${[...newset].join(' · ')||'—'}</div>
+   ${ms}<div class="tot"><span>≈ ${Math.round(t.k)} ккал</span><span class="mac"><span class="p">Б${t.p.toFixed(0)}</span><span class="f">Ж${t.f.toFixed(0)}</span><span class="c">У${t.c.toFixed(0)}</span></span></div></section>`;
+}
+document.getElementById('days').innerHTML=html;
+</script>
+</body></html>

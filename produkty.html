@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Продукты — правка (CRUD)</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;--trn:#e8631a;--ok:#16a34a;--bad:#dc2626;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;}
+.wrap{max-width:1180px;margin:0 auto;padding:14px;}
+.nav{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;} .nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:20px;margin:0 0 2px;} .subt{color:var(--mut);font-size:12.5px;margin-bottom:12px;}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:10;}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;} .btn.primary{background:var(--trn);color:#fff;border-color:var(--trn);} .btn.ok{background:var(--ok);color:#fff;border-color:var(--ok);} .btn.warn{background:#fff7ed;border-color:#f3d4b3;color:#9a5a12;}
+.count{font-size:12px;color:var(--mut);margin-left:auto;}
+.search{padding:7px 10px;border:1px solid var(--line);border-radius:9px;font-size:13px;min-width:200px;}
+.catblock{background:var(--card);border:1px solid var(--line);border-radius:11px;margin-bottom:12px;overflow:hidden;}
+.cathd{padding:8px 12px;font-weight:800;color:#fff;display:flex;justify-content:space-between;align-items:center;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:9.5px;text-transform:uppercase;color:var(--mut);text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);font-weight:700;}
+td{padding:3px 6px;border-bottom:1px solid #f0f2f6;}
+input,select{width:100%;padding:4px 6px;border:1px solid var(--line);border-radius:6px;font-size:12px;background:#fff;}
+input.num{text-align:right;}
+.w-n{width:auto;} td.del{width:30px;}
+.rm{border:none;background:#fee2e2;color:#991b1b;border-radius:6px;width:24px;height:24px;cursor:pointer;font-weight:800;}
+.hint{font-size:11px;color:var(--mut);margin-top:4px;}
+.saved{font-size:12px;color:var(--ok);font-weight:700;}
+.note{background:#fff7ed;border:1px solid #f3d4b3;border-radius:10px;padding:10px 12px;font-size:12px;margin-bottom:12px;}
+</style></head>
+<body><div class="wrap">
+<div class="nav"><a href="index.html">← Хаб</a><a href="konstruktor_dnya.html">Конструктор</a><a href="menu_nedeli.html">Меню недели</a><a href="menu_alternativy.html">Альтернативы</a><a class="cur" href="produkty.html">Продукты (правка)</a></div>
+<h1>🗂️ Продукты — добавить / удалить / поправить</h1>
+<div class="subt">Правки сохраняются мгновенно и сразу доступны в конструкторе и меню (через память браузера). Чтобы зафиксировать навсегда в файле — нажми «Экспорт products.js» и замени им файл в папке.</div>
+
+<div class="note">⚠️ КБЖУ указывается <b>на 100 г</b>. «деф.г» — сколько грамм добавляется по умолчанию в конструкторе. «упак.г» и «подпись упак.» нужны для округления списка покупок до упаковок.</div>
+
+<div class="toolbar">
+  <button class="btn primary" onclick="addProduct()">＋ Добавить продукт</button>
+  <button class="btn ok" onclick="exportJS()">⬇ Экспорт products.js</button>
+  <button class="btn warn" onclick="resetToFile()">↺ Сбросить к файлу</button>
+  <input class="search" id="search" placeholder="🔎 поиск…" oninput="render()">
+  <span class="count" id="count"></span>
+</div>
+<div id="list"></div>
+</div>
+
+<script src="products.js"></script>
+<script>
+let state = kdGetProducts();
+function save(){localStorage.setItem('kd_products_full',JSON.stringify(state));document.getElementById('count').innerHTML='<span class="saved">✔ сохранено</span> · '+state.length+' позиций';}
+function upd(idx,field,v,isNum){state[idx][field]=isNum?(parseFloat(v)||0):v;save();}
+function del(idx){if(confirm('Удалить «'+state[idx].n+'»?')){state.splice(idx,1);save();render();}}
+function addProduct(){state.unshift({id:'new_'+Date.now(),n:'Новый продукт',c:'Белок',k:100,p:10,f:5,cb:5,d:100,pack:100,pl:'уп.',tags:[],url:''});save();render();window.scrollTo(0,0);}
+
+function render(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const L=document.getElementById('list');L.innerHTML='';
+  const cats=KD_CATORD.slice();
+  // include any custom categories
+  state.forEach(p=>{if(!cats.includes(p.c))cats.push(p.c);});
+  cats.forEach(cat=>{
+    const items=state.map((p,i)=>[p,i]).filter(([p])=>p.c===cat && p.n.toLowerCase().includes(q));
+    if(!items.length)return;
+    const col=KD_CATCOL[cat]||'#64748b';
+    const blk=document.createElement('div');blk.className='catblock';
+    let rows=items.map(([p,i])=>`<tr>
+      <td><input class="w-n" value="${esc(p.n)}" onchange="upd(${i},'n',this.value)"></td>
+      <td style="width:120px"><select onchange="upd(${i},'c',this.value)">${KD_CATORD.map(c=>`<option ${c===p.c?'selected':''}>${c}</option>`).join('')}</select></td>
+      <td style="width:54px"><input class="num" type="number" value="${p.k}" onchange="upd(${i},'k',this.value,1)"></td>
+      <td style="width:48px"><input class="num" type="number" value="${p.p}" onchange="upd(${i},'p',this.value,1)"></td>
+      <td style="width:48px"><input class="num" type="number" value="${p.f}" onchange="upd(${i},'f',this.value,1)"></td>
+      <td style="width:48px"><input class="num" type="number" value="${p.cb}" onchange="upd(${i},'cb',this.value,1)"></td>
+      <td style="width:54px"><input class="num" type="number" value="${p.d}" onchange="upd(${i},'d',this.value,1)"></td>
+      <td style="width:60px"><input class="num" type="number" value="${p.pack}" onchange="upd(${i},'pack',this.value,1)"></td>
+      <td style="width:90px"><input value="${esc(p.pl||'')}" onchange="upd(${i},'pl',this.value)"></td>
+      <td style="width:120px"><input value="${esc(p.url||'')}" placeholder="ссылка ВкусВилл" onchange="upd(${i},'url',this.value)"></td>
+      <td class="del"><button class="rm" onclick="del(${i})">×</button></td></tr>`).join('');
+    blk.innerHTML=`<div class="cathd" style="background:${col}"><span>${cat}</span><span style="font-size:11px;font-weight:400">${items.length}</span></div>
+      <table><thead><tr><th>Название</th><th>Категория</th><th>Ккал</th><th>Б</th><th>Ж</th><th>У</th><th>деф.г</th><th>упак.г</th><th>подпись упак.</th><th>ссылка</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+    L.appendChild(blk);
+  });
+  document.getElementById('count').textContent=state.length+' позиций';
+}
+function esc(s){return (s||'').replace(/"/g,'&quot;');}
+
+function resetToFile(){if(confirm('Сбросить все правки и вернуться к версии из файла products.js?')){localStorage.removeItem('kd_products_full');state=KD_PRODUCTS_BASE.map(x=>Object.assign({},x));render();}}
+
+function exportJS(){
+  const cfg=`/* ===== БАЗА ПРОДУКТОВ (источник истины) — экспорт из CRUD ===== */
+
+const KD_MEALS = ${JSON.stringify(KD_MEALS)};
+const KD_CATORD = ${JSON.stringify(KD_CATORD)};
+const KD_CATCOL = ${JSON.stringify(KD_CATCOL)};
+const KD_TAGB = ${JSON.stringify(KD_TAGB)};
+const KD_TARGETS = ${JSON.stringify(KD_TARGETS)};
+
+const KD_PRODUCTS_BASE = ${JSON.stringify(state,null,0)};
+
+function kdUrl(p){ return p.url && p.url.length ? p.url
+  : "https://vkusvill.ru/search/?q=" + encodeURIComponent(p.n.replace(/\\s*\\(.*?\\)/g,'').trim()); }
+function kdGetProducts(){
+  try{ const full=JSON.parse(localStorage.getItem('kd_products_full')||'null'); if(full&&full.length) return full.map(x=>Object.assign({},x)); }catch(e){}
+  let base = KD_PRODUCTS_BASE.map(x=>Object.assign({},x));
+  let ov; try{ ov = JSON.parse(localStorage.getItem('kd_overrides')||'null'); }catch(e){ ov=null; }
+  if(!ov) return base;
+  let map={}; base.forEach(p=>map[p.id]=p);
+  (ov.deleted||[]).forEach(id=>{delete map[id];});
+  Object.entries(ov.edited||{}).forEach(([id,patch])=>{if(map[id])Object.assign(map[id],patch);});
+  let list=Object.values(map);(ov.added||[]).forEach(p=>list.push(Object.assign({},p)));return list;
+}
+function kdPacks(grams,p){const pack=p.pack||grams||1;const n=Math.max(1,Math.ceil(grams/pack));return {units:n,label:p.pl||(pack+" г"),totalPack:n*pack};}
+`;
+  const blob=new Blob([cfg],{type:'text/javascript'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='products.js';a.click();
+  alert('Скачан products.js. Замени им файл в папке trener_nutrio, чтобы зафиксировать правки навсегда.');
+}
+render();
+</script>
+</body></html>

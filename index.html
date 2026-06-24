@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Питание на массу — система</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;--trn:#e8631a;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px;}
+h1{font-size:24px;margin:0 0 4px;} .subt{color:var(--mut);font-size:14px;margin-bottom:22px;}
+.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;transition:.15s;}
+.card:hover{border-color:var(--trn);transform:translateY(-1px);box-shadow:0 4px 14px rgba(20,30,50,.07);}
+.card h2{margin:0 0 3px;font-size:17px;display:flex;align-items:center;gap:9px;}
+.card p{margin:0;color:var(--mut);font-size:13px;line-height:1.45;}
+.tag{font-size:11px;font-weight:700;color:var(--trn);}
+.foot{margin-top:18px;color:var(--mut);font-size:12px;line-height:1.5;}
+.foot b{color:var(--ink);}
+</style></head>
+<body><div class="wrap">
+<h1>🍽️ Питание на массу — твоя система</h1>
+<div class="subt">Цель: качественный набор · без лактозы · Жильбер-дружелюбно · ВкусВилл</div>
+
+<a class="card" href="konstruktor_dnya.html">
+  <h2>🧩 Конструктор дня</h2>
+  <p>Собери день из продуктов с живым пересчётом КБЖУ. Переключатель тренировочный/отдых, подсказки что поправить, сохранение комбинаций и список покупок с округлением до упаковок и ссылками.</p>
+</a>
+
+<a class="card" href="menu_nedeli.html">
+  <h2>📅 Меню на неделю</h2>
+  <p>Готовый сбалансированный план на 7 дней с КБЖУ по каждому дню и общим списком продуктов на неделю. Режим «не хочу думать — ем по списку».</p>
+</a>
+
+<a class="card" href="menu_alternativy.html">
+  <h2>🧪 Альтернативные дни</h2>
+  <p>5 «тестовых» дней с другими комбинациями и новыми продуктами (морепродукты, киноа, батат, тортилья, авокадо) — чтобы рацион не приедался. Те же ~2400 ккал, всё под твои ограничения.</p>
+</a>
+
+<a class="card" href="produkty.html">
+  <h2>🗂️ Продукты (правка)</h2>
+  <p>Добавляй, удаляй и правь продукты и их КБЖУ. Изменения сразу подхватывают конструктор и меню. Экспорт в <span class="tag">products.js</span> для постоянного хранения.</p>
+</a>
+
+<div class="foot">
+<b>Как устроено:</b> все КБЖУ лежат в одном файле <b>products.js</b> — его можно открыть и перепроверить/дополнить вручную, и страницы сразу его читают.<br><br>
+<b>Печатные листы:</b> menu_week_v2.html (меню на холодильник) и reports/ (разборы). Профиль и программы — profile.md, programs/.<br><br>
+КБЖУ — ориентир (партии ВкусВилла меняются, точное на упаковке). Для лога питания остаётся FatSecret. Не медицинское назначение.
+</div>
+</div></body></html>

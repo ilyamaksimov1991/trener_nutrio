@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Конструктор дня — питание на массу</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;
+--p:#2f6fed;--f:#e0a106;--c:#16a34a;--ok:#16a34a;--warn:#e0820a;--bad:#dc2626;--trn:#e8631a;--rst:#179a86;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:14px;line-height:1.4;}
+.wrap{max-width:1180px;margin:0 auto;padding:14px;}
+.nav{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;}
+.nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:20px;margin:0 0 2px;}
+.subt{color:var(--mut);font-size:12.5px;margin-bottom:10px;}
+.daytype{display:inline-flex;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:10px;}
+.daytype button{border:none;background:#fff;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--mut);}
+.daytype button.on.t{background:var(--trn);color:#fff;} .daytype button.on.r{background:var(--rst);color:#fff;}
+.summary{position:sticky;top:0;z-index:20;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:0 2px 10px rgba(20,30,50,.06);margin-bottom:12px;}
+.mrow{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:10px;align-items:center;}
+.metric{text-align:center;} .metric .lab{font-size:10px;text-transform:uppercase;color:var(--mut);}
+.metric .val{font-size:18px;font-weight:800;line-height:1.1;} .metric .tgt{font-size:10px;color:var(--mut);}
+.bar{height:6px;border-radius:4px;background:#eef1f5;margin-top:4px;overflow:hidden;} .bar>i{display:block;height:100%;}
+.status{font-weight:800;font-size:13px;padding:8px 12px;border-radius:10px;text-align:center;min-width:120px;}
+.s-ok{background:#dcfce7;color:#166534;} .s-warn{background:#fef3c7;color:#92400e;} .s-bad{background:#fee2e2;color:#991b1b;}
+.alerts{margin-top:8px;display:flex;flex-direction:column;gap:5px;}
+.alert{font-size:12.5px;padding:6px 10px;border-radius:8px;} .a-bad{background:#fee2e2;color:#991b1b;} .a-warn{background:#fef3c7;color:#92400e;} .a-tip{background:#e0edff;color:#1e40af;} .a-ok{background:#dcfce7;color:#166534;}
+.cols{display:grid;grid-template-columns:1fr 1.05fr;gap:14px;}
+@media(max-width:880px){.cols{grid-template-columns:1fr;}.mrow{grid-template-columns:repeat(2,1fr);}.status{grid-column:span 2;}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;}
+.panel h2{font-size:13px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut);}
+.meal{border:1px solid var(--line);border-radius:10px;margin-bottom:9px;overflow:hidden;} .meal.active{border-color:var(--trn);box-shadow:0 0 0 2px rgba(232,99,26,.15);}
+.mhead{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#f8fafc;cursor:pointer;} .mname{font-weight:800;} .mkc{font-size:12px;color:var(--mut);font-weight:700;}
+.mitems{padding:4px 10px 8px;}
+.item{display:grid;grid-template-columns:1fr 60px auto auto;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dashed #eef1f5;} .item:last-child{border-bottom:none;}
+.iname{font-size:12.5px;} .iname b{font-weight:700;}
+.item input{width:56px;padding:4px 6px;border:1px solid var(--line);border-radius:7px;font-size:12px;text-align:right;}
+.ikc{font-size:11px;color:var(--mut);white-space:nowrap;} .rm{border:none;background:#fee2e2;color:#991b1b;border-radius:6px;width:22px;height:22px;cursor:pointer;font-weight:800;}
+.empty{color:var(--mut);font-size:12px;padding:6px 0;font-style:italic;}
+.addhint{font-size:11px;color:var(--trn);font-weight:700;padding:2px 0 6px;}
+.search{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:13px;margin-bottom:8px;}
+.target-meal{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.target-meal button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:600;} .target-meal button.on{background:var(--trn);color:#fff;border-color:var(--trn);}
+.catgrp{margin-bottom:10px;} .catttl{font-size:11px;font-weight:800;text-transform:uppercase;margin:6px 0 5px;display:flex;align-items:center;gap:6px;} .catttl .dot{width:8px;height:8px;border-radius:50%;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 9px;font-size:12px;cursor:pointer;display:flex;flex-direction:column;gap:1px;} .chip:hover{border-color:var(--trn);} .chip.warn{border-color:#f3d39b;background:#fffaf0;}
+.chip .cn{font-weight:600;} .chip .ck{font-size:10px;color:var(--mut);}
+.badge{display:inline-block;font-size:9.5px;font-weight:800;padding:1px 5px;border-radius:6px;margin-left:4px;} .b-bloat{background:#fef3c7;color:#92400e;} .b-fat{background:#fde68a;color:#7c5e00;} .b-trn{background:#dcfce7;color:#166534;}
+.foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;} .btn.primary{background:var(--trn);color:#fff;border-color:var(--trn);}
+.combos{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.combo{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:20px;padding:4px 6px 4px 11px;font-size:12px;background:#fff;}
+.combo b{font-weight:700;} .combo button{border:none;background:#eef1f5;border-radius:6px;cursor:pointer;padding:2px 6px;font-size:11px;}
+.shopbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:14px;}
+.shopbox h2{font-size:13px;margin:0 0 8px;text-transform:uppercase;color:var(--mut);}
+.shoptab{width:100%;border-collapse:collapse;font-size:13px;} .shoptab td{padding:5px 6px;border-bottom:1px solid #eef1f5;} .shoptab a{color:var(--p);text-decoration:none;font-weight:600;} .qty{text-align:right;white-space:nowrap;font-weight:700;} .gr{color:var(--mut);font-size:11px;}
+.legend{font-size:11px;color:var(--mut);margin-top:8px;}
+</style></head>
+<body><div class="wrap">
+<div class="nav"><a href="index.html">← Хаб</a><a class="cur" href="konstruktor_dnya.html">Конструктор</a><a href="menu_nedeli.html">Меню недели</a><a href="menu_alternativy.html">Альтернативы</a><a href="produkty.html">Продукты (правка)</a></div>
+<h1>🍽️ Конструктор дня</h1>
+<div class="subt">Кликни приём → выбери продукты → задай граммы. Крупы — СУХОЙ вес. КБЖУ — ориентир, точное на упаковке.</div>
+<div class="daytype" id="daytype"></div>
+
+<div class="summary">
+  <div class="mrow">
+    <div class="metric"><div class="lab">Ккал</div><div class="val" id="vK">0</div><div class="tgt" id="tK"></div><div class="bar"><i id="bK"></i></div></div>
+    <div class="metric"><div class="lab">Белок</div><div class="val" id="vP">0</div><div class="tgt" id="tP"></div><div class="bar"><i id="bP"></i></div></div>
+    <div class="metric"><div class="lab">Жир</div><div class="val" id="vF">0</div><div class="tgt" id="tF"></div><div class="bar"><i id="bF"></i></div></div>
+    <div class="metric"><div class="lab">Углеводы</div><div class="val" id="vC">0</div><div class="tgt" id="tC"></div><div class="bar"><i id="bC"></i></div></div>
+    <div class="status s-warn" id="status">Собери день</div>
+  </div>
+  <div class="alerts" id="alerts"></div>
+</div>
+
+<div class="cols">
+  <div class="panel">
+    <h2>День по приёмам</h2>
+    <div id="meals"></div>
+    <div class="foot">
+      <button class="btn primary" onclick="saveCombo()">💾 Сохранить комбинацию</button>
+      <button class="btn" onclick="newDay()">＋ Новый день</button>
+      <button class="btn" onclick="resetDay()">↺ Очистить</button>
+    </div>
+    <div class="combos" id="combos"></div>
+  </div>
+  <div class="panel">
+    <h2>Продукты ВкусВилл</h2>
+    <div class="addhint">Добавлять в приём:</div>
+    <div class="target-meal" id="mealsel"></div>
+    <input class="search" id="search" placeholder="🔎 поиск продукта…" oninput="renderPalette()">
+    <div id="palette"></div>
+    <div class="legend">Бейджи: <span class="badge b-bloat">вздутие</span> следи за порцией ·
+      <span class="badge b-fat">жирное</span> дозируй (Жильбер) · <span class="badge b-trn">вокруг трен.</span> хорошо до/после зала.
+      Лактозные продукты в список не включены — они тебе не подходят.</div>
+  </div>
+</div>
+
+<div class="shopbox">
+  <h2>🛒 Список покупок <span id="shopsrc" style="font-weight:400;text-transform:none;color:var(--mut);font-size:11px;"></span></h2>
+  <table class="shoptab" id="shoptab"></table>
+  <div class="legend">Количество округлено вверх до упаковок. Считается из сохранённых комбинаций + текущего дня. Крупы — сухой вес. Ссылки ведут на ВкусВилл (или подборку по запросу).</div>
+</div>
+</div>
+
+<script src="products.js"></script>
+<script>
+let PRO = kdGetProducts();
+let M = {}; PRO.forEach(p=>M[p.id]=p);
+const MEALS = KD_MEALS;
+let mode = localStorage.getItem('kd_mode')||'train';
+let active = 2;
+let day = MEALS.map(()=>[]);
+let combos = JSON.parse(localStorage.getItem('kd_combos')||'[]');
+
+function T(){ return KD_TARGETS[mode]; }
+function val(id,g){const x=M[id];if(!x)return{k:0,p:0,f:0,c:0};const r=g/100;return{k:x.k*r,p:x.p*r,f:x.f*r,c:x.cb*r};}
+function totals(){let t={k:0,p:0,f:0,c:0};day.forEach(m=>m.forEach(it=>{const v=val(it.id,it.g);t.k+=v.k;t.p+=v.p;t.f+=v.f;t.c+=v.c;}));return t;}
+
+function renderDaytype(){const e=document.getElementById('daytype');e.innerHTML=
+  `<button class="t ${mode==='train'?'on':''}" onclick="setMode('train')">🏋️ Тренировочный</button>
+   <button class="r ${mode==='rest'?'on':''}" onclick="setMode('rest')">🛌 День отдыха</button>`;}
+function setMode(m){mode=m;localStorage.setItem('kd_mode',m);render();}
+
+function renderMealSel(){const e=document.getElementById('mealsel');e.innerHTML='';MEALS.forEach((m,i)=>{const b=document.createElement('button');b.textContent=m;if(i===active)b.className='on';b.onclick=()=>{active=i;renderMealSel();};e.appendChild(b);});}
+
+function renderMeals(){const e=document.getElementById('meals');e.innerHTML='';MEALS.forEach((m,i)=>{
+  let sub={k:0,p:0,f:0,c:0};day[i].forEach(it=>{const v=val(it.id,it.g);sub.k+=v.k;sub.p+=v.p;sub.f+=v.f;sub.c+=v.c;});
+  const d=document.createElement('div');d.className='meal'+(i===active?' active':'');
+  let items=day[i].map((it,j)=>{const x=M[it.id];if(!x)return '';const v=val(it.id,it.g);
+    const tg=(x.tags||[]).map(t=>KD_TAGB[t]?`<span class="badge ${KD_TAGB[t][1]}">${KD_TAGB[t][0]}</span>`:'').join('');
+    return `<div class="item"><div class="iname"><b>${x.n}</b>${tg}</div>
+      <input type="number" min="0" step="5" value="${it.g}" onchange="setG(${i},${j},this.value)"> г
+      <span class="ikc">${Math.round(v.k)}к</span><button class="rm" onclick="rm(${i},${j})">×</button></div>`;}).join('');
+  if(!day[i].length)items=`<div class="empty">пусто — выбери продукты справа (приём «${m}»)</div>`;
+  d.innerHTML=`<div class="mhead" onclick="active=${i};render()"><span class="mname">${m}</span><span class="mkc">${Math.round(sub.k)} ккал · Б${sub.p.toFixed(0)} Ж${sub.f.toFixed(0)} У${sub.c.toFixed(0)}</span></div><div class="mitems">${items}</div>`;
+  e.appendChild(d);});}
+
+function renderPalette(){const q=(document.getElementById('search').value||'').toLowerCase();const e=document.getElementById('palette');e.innerHTML='';
+  KD_CATORD.forEach(cat=>{const list=PRO.filter(x=>x.c===cat && x.n.toLowerCase().includes(q));if(!list.length)return;
+    const g=document.createElement('div');g.className='catgrp';
+    g.innerHTML=`<div class="catttl"><span class="dot" style="background:${KD_CATCOL[cat]}"></span>${cat}</div>`;
+    const ch=document.createElement('div');ch.className='chips';
+    list.forEach(x=>{const c=document.createElement('div');const warn=(x.tags||[]).includes('fat');c.className='chip'+(warn?' warn':'');
+      c.innerHTML=`<span class="cn">${x.n}</span><span class="ck">${x.k} ккал · Б${x.p} Ж${x.f} У${x.cb} /100г</span>`;
+      c.onclick=()=>add(x.id);ch.appendChild(c);});
+    g.appendChild(ch);e.appendChild(g);});}
+
+function add(id){day[active].push({id,g:M[id].d});render();}
+function setG(i,j,v){day[i][j].g=Math.max(0,parseFloat(v)||0);render();}
+function rm(i,j){day[i].splice(j,1);render();}
+
+function statusMacro(v,t){if(v<t[0])return v<t[0]*0.85?'bad':'warn';if(v>t[1])return v>t[1]*1.12?'bad':'warn';return 'ok';}
+function barColor(s){return s==='ok'?'var(--ok)':s==='warn'?'var(--warn)':'var(--bad)';}
+
+function renderCombos(){const e=document.getElementById('combos');e.innerHTML=combos.map((c,i)=>
+  `<span class="combo">${c.mode==='train'?'🏋️':'🛌'} <b>${c.name}</b> <button onclick="loadCombo(${i})">открыть</button> <button onclick="delCombo(${i})">✕</button></span>`).join('')
+  || '<span class="legend">Сохранённых комбинаций нет. Собери день и нажми «Сохранить комбинацию».</span>';}
+
+function render(){
+  PRO = kdGetProducts(); M={}; PRO.forEach(p=>M[p.id]=p);
+  renderDaytype();renderMealSel();renderMeals();renderPalette();renderCombos();
+  const tg=T();
+  const t=totals();
+  const setM=(id,v,range,unit)=>{document.getElementById('v'+id).textContent=Math.round(v)+(unit||'');
+    document.getElementById('t'+id).textContent=range[0]+'–'+range[1];
+    const s=statusMacro(v,range);const b=document.getElementById('b'+id);b.style.width=Math.min(100,v/range[1]*100)+'%';b.style.background=barColor(s);return s;};
+  const sK=setM('K',t.k,tg.k,''),sP=setM('P',t.p,tg.p,'г'),sF=setM('F',t.f,tg.f,'г'),sC=setM('C',t.c,tg.c,'г');
+  const A=[];
+  if(t.f>tg.f[1])A.push(['warn',`Жир ${Math.round(t.f)} г — выше нормы (Жильбер). Убери масло/жирную рыбу/орехи/шоколад.`]);
+  if(t.p<tg.p[0])A.push(['tip',`Белок ${Math.round(t.p)} г — добери до ${tg.p[0]}–${tg.p[1]}: +протеин/рыба/индейка.`]);
+  if(t.p>tg.p[1]+10)A.push(['tip',`Белок ${Math.round(t.p)} г — многовато; переложи часть калорий в углеводы.`]);
+  if(t.c<tg.c[0])A.push(['tip',`Углеводы ${Math.round(t.c)} г — добери до ${tg.c[0]}–${tg.c[1]}: +крупа/картофель/банан (вокруг трен.).`]);
+  if(t.k<tg.k[0])A.push(['tip',`Калорий ${Math.round(t.k)} — мало для набора. Добавь углеводы.`]);
+  if(t.k>tg.k[1])A.push(['warn',`Калорий ${Math.round(t.k)} — выше цели дня. Убери масло/лишний гарнир/сладкое.`]);
+  let bl=new Set();day.forEach(m=>m.forEach(it=>{const x=M[it.id];if(x&&(x.tags||[]).includes('bloat')&&it.g>=140)bl.add(x.n);}));
+  bl.forEach(n=>A.push(['tip',`🫧 ${n} — большая порция может пучить. Следи по ЖКТ/стулу.`]));
+  const macroAllOk=sK==='ok'&&sP==='ok'&&sF==='ok'&&sC==='ok';
+  const st=document.getElementById('status');
+  if(!day.some(m=>m.length)){st.className='status s-warn';st.textContent='Собери день';}
+  else if(macroAllOk){st.className='status s-ok';st.textContent='✓ В диапазоне';A.unshift(['ok','✓ День попадает в диапазон по всем макросам — отлично!']);}
+  else {st.className='status s-warn';st.textContent='Почти — поправь';}
+  document.getElementById('alerts').innerHTML=A.map(([t,m])=>`<div class="alert a-${t}">${m}</div>`).join('');
+  localStorage.setItem('kd_work',JSON.stringify({mode,day}));
+  renderShopping();
+}
+
+function renderShopping(){
+  const agg={};
+  combos.forEach(c=>c.day.forEach(m=>m.forEach(it=>{agg[it.id]=(agg[it.id]||0)+it.g;})));
+  day.forEach(m=>m.forEach(it=>{agg[it.id]=(agg[it.id]||0)+it.g;}));
+  const ids=Object.keys(agg).filter(id=>M[id]);
+  document.getElementById('shopsrc').textContent=`(${combos.length} комб. + текущий день · ${ids.length} поз.)`;
+  if(!ids.length){document.getElementById('shoptab').innerHTML='<tr><td class="gr">Пусто — добавь продукты в день или сохрани комбинации.</td></tr>';return;}
+  // group by category
+  let rows='';
+  KD_CATORD.forEach(cat=>{
+    const inCat=ids.filter(id=>M[id].c===cat);if(!inCat.length)return;
+    rows+=`<tr><td colspan="3" style="padding-top:8px"><b style="color:${KD_CATCOL[cat]}">${cat}</b></td></tr>`;
+    inCat.forEach(id=>{const p=M[id];const grams=agg[id];const pk=kdPacks(grams,p);
+      rows+=`<tr><td><a href="${kdUrl(p)}" target="_blank">${p.n}</a></td>
+        <td class="gr">нужно ≈ ${Math.round(grams)} г</td>
+        <td class="qty">${pk.units} × ${pk.label}</td></tr>`;});
+  });
+  document.getElementById('shoptab').innerHTML=rows;
+}
+
+function saveCombo(){if(!day.some(m=>m.length)){alert('День пустой');return;}
+  const name=prompt('Название комбинации (например: «Пн вариант 1»):','Комбо '+(combos.length+1));if(!name)return;
+  combos.push({name,mode,day:JSON.parse(JSON.stringify(day))});localStorage.setItem('kd_combos',JSON.stringify(combos));
+  if(confirm('Сохранено ✔  Начать новый (пустой) день?')){day=MEALS.map(()=>[]);}
+  render();}
+function loadCombo(i){day=JSON.parse(JSON.stringify(combos[i].day));mode=combos[i].mode;localStorage.setItem('kd_mode',mode);render();}
+function delCombo(i){if(confirm('Удалить комбинацию «'+combos[i].name+'»?')){combos.splice(i,1);localStorage.setItem('kd_combos',JSON.stringify(combos));render();}}
+function newDay(){day=MEALS.map(()=>[]);render();}
+function resetDay(){if(confirm('Очистить текущий день?')){day=MEALS.map(()=>[]);render();}}
+
+const w=localStorage.getItem('kd_work');if(w){try{const o=JSON.parse(w);day=o.day||day;mode=o.mode||mode;}catch(e){}}
+render();
+</script>
+</body></html>
