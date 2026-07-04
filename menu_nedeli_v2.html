@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Меню на неделю v2 — масса (цели агента 04.07)</title>
+<style>
+:root{--ink:#1c2530;--mut:#6b7785;--line:#e2e7ee;--bg:#f4f6f9;--card:#fff;--p:#2f6fed;--f:#e0a106;--c:#16a34a;--trn:#e8631a;--rst:#179a86;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;line-height:1.4;}
+.wrap{max-width:1120px;margin:0 auto;padding:14px;}
+.nav{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.nav a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;} .nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:20px;margin:0 0 2px;} .subt{color:var(--mut);font-size:12.5px;margin-bottom:12px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:820px){.grid{grid-template-columns:1fr;}}
+.day{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;break-inside:avoid;}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:7px 11px;color:#fff;}
+.trn .dh{background:var(--trn);} .rst .dh{background:var(--rst);}
+.dn{font-weight:800;font-size:14px;} .bd{font-size:10px;font-weight:700;letter-spacing:.4px;}
+.meal{padding:5px 11px;border-bottom:1px solid #f0f2f6;} .meal:last-of-type{border-bottom:none;}
+.mn{font-size:10px;text-transform:uppercase;color:var(--mut);font-weight:700;letter-spacing:.3px;margin-bottom:2px;}
+.it{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:1px 0;}
+.itn{font-size:12.5px;} .itn b{font-weight:700;}
+.pcs{color:var(--trn);font-weight:700;font-size:11px;}
+.itk{font-size:10.5px;color:var(--mut);white-space:nowrap;}
+.recipe{margin:2px 0 2px 12px;padding:5px 9px;background:#f0f9ff;border-left:3px solid #38bdf8;border-radius:6px;font-size:11.5px;}
+.recipe b{color:#0369a1;} .recipe span{color:var(--mut);}
+.tot{padding:7px 11px;background:#fafbfc;border-top:2px solid var(--ink);font-weight:800;font-size:12px;display:flex;justify-content:space-between;}
+.tot .mac span{margin-left:8px;} .p{color:var(--p);} .f{color:var(--f);} .c{color:var(--c);}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:14px;}
+.panel h2{font-size:14px;margin:0 0 10px;border-bottom:2px solid var(--ink);padding-bottom:6px;}
+.shoptab{width:100%;border-collapse:collapse;font-size:13px;} .shoptab td{padding:5px 6px;border-bottom:1px solid #eef1f5;} .shoptab a{color:var(--p);text-decoration:none;font-weight:600;}
+.qty{text-align:right;white-space:nowrap;font-weight:800;} .gr{color:var(--mut);font-size:11px;}
+.legend{font-size:11px;color:var(--mut);margin-top:8px;}
+.smuzibox{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:9px 12px;margin-top:12px;font-size:12.5px;}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;}
+@media print{.nav,.btn{display:none;}@page{size:A4;margin:8mm;}}
+.mn{display:flex;justify-content:flex-start;align-items:baseline;gap:6px;flex-wrap:wrap}.mn .mkb{margin-left:auto;font-weight:900;color:#111;white-space:nowrap;font-size:1em}</style></head>
+<body><div class="wrap">
+<div class="nav"><a href="index.html">← Хаб</a><a class="cur" href="menu_nedeli.html">Меню недели</a><a href="menu_alternativy.html">Альтернативы</a><a href="smuzi.html">Смузи</a><a href="zavtraki.html">Завтраки</a><a href="produkty.html">Продукты</a><a href="konstruktor_dnya.html">Конструктор</a></div>
+<h1>📅 Меню на неделю v2 — под цели: 2400–2480 ккал · Б 155–165 · Ж 65–72 · У 295–320 · сахар <80</h1>
+<div class="subt">Что изменилось vs v1: <b>белок едой, без отдельного приёма протеина</b>: +яичные белки на завтрак, котлеты 150–175 г на обед, рыба 140–200 г; в дни отдыха 30 г изолята отдельным шейком в 16:30 между обедом и ужином; ужин в 19:00 (белок 144→~157), <b>+орехи с ротацией по дням (Пн/Чт миндаль · Вт/Пт/Вс грецкий · Ср/Сб фундук)/оливковое</b> (жир 58→~69, ненасыщенные — под липидный профиль по чекапу 01.07), <b>форель 2×/нед</b> (Пн, Пт — омега-3), <b>один сладкий довесок в день</b> вместо двух (сахар <80 г), крупы чуть срезаны (У 333→~300). Триггеров ЖКТ нет (без корейской моркови, груши, лактозы). Крупы — СУХОЙ вес (ВкусВилл). Расчётное среднее: <b>2438 ккал · Б159 · Ж69 · У300</b> (v1 было 2415 · Б144 · Ж58 · У333).</div>
+<div class="grid" id="days"></div>
+
+<div class="smuzibox">🥤 <b>Смузи-гейнер</b> (база + наполнитель дня ≈ 515–545 ккал): база: протеин 30 г + банан 1 шт + овсянка 40 г + раст. молоко 250 мл; наполнитель по дням: Пн/Чт/Вс ягоды 140 г · Вт/Пт/Сб клубника 150 г · Ср мёд 10 г — взбить блендером. Это и есть тот «лёгкий» приём, который заменяет тяжёлую твёрдую еду.</div>
+
+<div class="panel">
+  
+<div class="note" style="background:#eef7ee;border:1px solid #cfe6cf;border-radius:10px;padding:10px 12px;margin:10px 0">
+🥦 <b>Гарнирные овощи на ужин — меняй 1:1 по весу (80–100 г), КБЖУ почти не меняется:</b>
+<a href="https://vkusvill.ru/goods/fasol-struchkovaya-16091/" target="_blank">стручковая фасоль зам. 400 г</a> ·
+<a href="https://vkusvill.ru/goods/smes-ovoshchi-gril-bystrozamorozhennaya-44519.html" target="_blank">смесь «Овощи гриль» зам.</a> ·
+<a href="https://vkusvill.ru/goods/tykva-kroshka-16394.html" target="_blank">тыква (запечь)</a> ·
+<a href="https://vkusvill.ru/goods/tykva-zapechennaya-s-bazilikom-150-g-107334.html" target="_blank">тыква запечённая готовая 150 г</a> ·
+кабачок-гриль без моркови · баклажан запечённый · шпинат тушёный · свежие огурец+помидор.
+<br><b>Не брать:</b> гриль-набор с луком и шампиньонами (лук/грибы — газообразующие), корейскую морковь; брокколи/цветную — только маленькой порцией.
+</div>
+<h2>🛒 Список продуктов на всю неделю</h2>
+  <table class="shoptab" id="shop"></table>
+  <div class="legend">Суммарно за 7 дней, округлено вверх до упаковок. Крупы — сухой вес. Ингредиенты смузи (банан, овсянка, мёд, протеин, раст. молоко) учтены отдельными строками. Ссылки — на ВкусВилл.</div>
+  <button class="btn" style="margin-top:10px" onclick="window.print()">🖨 Печать</button>
+</div>
+</div>
+
+<script src="products.js"></script>
+
+<div class="note" style="background:#eef3fb;border:1px solid #cdd9ef;border-radius:10px;padding:12px 14px;margin:14px 0">
+<b>📋 Шпаргалка: КБЖУ по приёмам (если не дома / надо собрать приём из магазина)</b>
+<table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:12px">
+<tr style="font-weight:700"><td style="padding:3px 6px">ТРЕН-ДЕНЬ (Пн/Ср/Пт)</td><td>Ккал</td><td>Б</td><td>Ж</td><td>У</td></tr>
+<tr><td style="padding:2px 6px">06:45 до трен. (изолят 30 + банан)</td><td>~225</td><td>26 <small>(весь — изолят)</small></td><td>0–2</td><td>25–30</td></tr>
+<tr><td style="padding:2px 6px">09:30 завтрак</td><td>~490</td><td>~30 <small>(8 овсянка + 22 яйца/белки)</small></td><td>15–18</td><td>55–60</td></tr>
+<tr><td style="padding:2px 6px">12:30 обед</td><td>~570</td><td>25–35 <small>(6–11 крупа + 16–30 мясо)</small></td><td>15–20</td><td>65–85</td></tr>
+<tr><td style="padding:2px 6px">16:00 смузи + орехи</td><td>~660</td><td>38–40 <small>(26 изолят + 7 состав смузи + 2–5 орехи)</small></td><td>20–25</td><td>~80</td></tr>
+<tr><td style="padding:2px 6px">19:00 ужин</td><td>~520</td><td>30–40 <small>(5–9 гарнир + 25–30 рыба/мясо)</small></td><td>10–15</td><td>50–75</td></tr>
+<tr style="font-weight:700"><td style="padding:6px 6px 3px">ДЕНЬ ОТДЫХА (Вт/Чт/Сб/Вс)</td><td>Ккал</td><td>Б</td><td>Ж</td><td>У</td></tr>
+<tr><td style="padding:2px 6px">08:30 завтрак</td><td>~580</td><td>~33 <small>(10 овсянка + 22 яйца/белки)</small></td><td>~18</td><td>60–78</td></tr>
+<tr><td style="padding:2px 6px">11:00 смузи + орехи</td><td>~630</td><td>~38 <small>(26 изолят + 7 состав смузи + 2–4 орехи)</small></td><td>17–22</td><td>~80</td></tr>
+<tr><td style="padding:2px 6px">14:00 обед</td><td>~630</td><td>30–37 <small>(5–12 крупа + 24–33 мясо/рыба)</small></td><td>15–19</td><td>80–90</td></tr>
+<tr><td style="padding:2px 6px">16:30 изолят 30 г</td><td>~110</td><td>26 <small>(весь — изолят)</small></td><td>1</td><td>1</td></tr>
+<tr><td style="padding:2px 6px">19:00 ужин</td><td>~490</td><td>~30 <small>(5–7 гарнир + 21–24 мясо)</small></td><td>10–20</td><td>50–75</td></tr>
+</table>
+<b>Правило вне дома:</b> любой большой приём = <b>550–650 ккал · Б 30 · Ж 15–20 · У 70–80</b>. Таких в дне четыре (на треньке один из них — смузи), плюс два малых фиксированных (до трена и 16:30).<br>
+<b>Сборка из магазина (безлактозно):</b> белок — готовая индейка/курица 150 г, банка тунца, 3 яйца или изолят с шейкером · углеводы — готовая гречка/рис 250–300 г, 2 банана + рисовые хлебцы, картофель · жир — горсть орехов 20 г.<br>
+Примеры: «готовая гречка с индейкой + банан + орехи» ≈ обед · «тунец + рис + огурец + орехи» ≈ ужин · «изолят + 2 банана + хлебцы» ≈ смузи без блендера.<br>
+<b>Два запрета вне дома:</b> сливочные/сырные соусы (лактоза) и второй сладкий довесок за день.
+<hr style="border:none;border-top:1px solid #cdd9ef;margin:10px 0">
+<b>🥩 Белок в обеде/ужине: сколько из крупы, сколько из мяса.</b><br>
+Крупа даёт: гречка 70–90 г сух → 9–11 г белка · овсянка 70–80 г → 8–10 · рис/макароны 70–90 г → 5–6 · картофель 270–280 г → ~5. Остальное — мясо/рыба: <b>~20–25 г белка на приём</b>.<br>
+<b>Формула для любого нового мяса/рыбы: порция (г) = 2200 ÷ белок на 100 г</b> (даст ~22 г белка).<br>
+Примеры: филе индейки (Б22) → 100 г · фарш индейки (Б20) → 110 г · бедро (Б18) → 120 г · котлеты (Б16) → 140–150 г · хек (Б16.5) → 135–150 г · форель (Б20) → 110–140 г · тунец (Б23) → 100 г · говядина тушёная (Б25) → 90 г.<br>
+<b>Проверка по жиру:</b> у мяса жир >10 г/100 г (свинина, кожа птицы) → убери масло из приёма и уменьши орехи в этот день; жир <5 г/100 г (белая рыба, филе) → добавь 5–7 г масла. С гречкой мясо можно по нижней границе, с рисом/картошкой — по верхней.
+</div>
+
+<script>
+const M={}; kdGetProducts().forEach(p=>M[p.id]=p);
+// смузи раскладываем на ингредиенты для списка покупок
+const SMUZI=[["whey",30],["banan",120],["ovsjanka",40],["rast_moloko",250]];
+// оптимальное время приёмов (по порядку приёмов в дне)
+const TRAIN_T=["06:45","09:30","12:30","16:00","19:00"]; // трен. утром натощак
+const REST_T =["08:30","11:00","14:00","16:30","19:00"]; // ровные промежутки (Жильбер)
+const WEEK={
+"Понедельник|трен":[["До трен.",[["whey",30],["banan",120]]],["Завтрак",[["ovsjanka",70],["yaico",110],["belki",66],["kivi",75]]],["Обед",[["ris",80],["kotleti_indeika",100],["ogurec",80],["oil",5]]],["Перекус 🥤",[["smuzi_base",455],["yagody",140],["mindal",18]]],["Ужин 🍬",[["grechka",70],["forel",150],["fasol_struch",100],["pastila",25]]]],
+"Вторник|отдых":[["Завтрак",[["ovsjanka",80],["yaico",110],["belki",66],["banan",120]]],["Перекус 🥤",[["smuzi_base",455],["klubnika",150],["greckiy",18]]],["Обед 🍬",[["ris",80],["kotleti_indeika",150],["ogurec",80],["oil",2],["marmelad",30]]],["Протеин",[["whey",30]]],["Ужин",[["grechka",70],["hek",150],["kabachok",100],["oil",5]]]],
+"Среда|трен":[["До трен.",[["whey",30],["banan",120]]],["Завтрак",[["ovsjanka",80],["yaico",110],["klubnika",150]]],["Обед",[["grechka",90],["govjadina_tush",120],["ogurec",80],["oil",5]]],["Перекус 🥤",[["smuzi_base",455],["med",10],["funduk",28]]],["Ужин 🍬",[["kartofel",270],["hek",150],["tykva",100],["zefir",30]]]],
+"Четверг|отдых":[["Завтрак",[["ovsjanka",80],["yaico",110],["belki",66],["banan",120]]],["Перекус 🥤",[["smuzi_base",455],["yagody",140],["mindal",15]]],["Обед 🍬",[["makaroni",75],["kotleti_indeika",175],["ogurec",80],["pastila",25]]],["Протеин",[["whey",30]]],["Ужин",[["ris",70],["bedro_kura",120],["ovoschi_gril_zam",80],["oil",3]]]],
+"Пятница|трен":[["До трен.",[["whey",30],["banan",120]]],["Завтрак",[["ovsjanka",70],["yaico",110],["belki",66],["kivi",75]]],["Обед 🍬",[["ris",80],["bedro_kura",120],["ogurec",80],["oil",5],["marmelad",30]]],["Перекус 🥤",[["smuzi_base",455],["klubnika",150],["greckiy",16]]],["Ужин",[["grechka",70],["forel",140],["ogurec",50],["pomidor",70]]]],
+"Суббота|отдых":[["Завтрак",[["ovsjanka",80],["yaico",110],["belki",66],["banan",120]]],["Перекус 🥤",[["smuzi_base",455],["klubnika",150],["funduk",10]]],["Обед 🍬",[["grechka",95],["kotleti_indeika",150],["ogurec",80],["zefir",35]]],["Протеин",[["whey",30]]],["Ужин",[["kartofel",280],["govjadina_tush",90],["shpinat",100],["oil",5]]]],
+"Воскресенье|отдых":[["Завтрак",[["ovsjanka",80],["yaico",110],["belki",66],["klubnika",100]]],["Перекус 🥤",[["smuzi_base",455],["yagody",140],["greckiy",18]]],["Обед 🍬",[["ris",80],["hek",180],["ogurec",80],["oil",3],["pastila",25]]],["Протеин",[["whey",30]]],["Ужин",[["makaroni",90],["kotleti_indeika",150],["fasol_struch",100],["oil",3]]]]
+};
+function cleanName(n){return n.replace(' (СУХОЙ вес)',' сух.').replace(' (СУХОЙ)',' сух.').replace(' (СУХИЕ)',' сух.').replace(' (СУХАЯ)',' сух.').replace(' (СУХОЕ)',' сух.').replace(' (рис/кукуруза, СУХИЕ)',' (б/глют.) сух.').replace(/\\(протеин.*?\\)/,'');}
+function pcsLabel(x,g){if(!x.gpp)return '';const n=Math.round(g/x.gpp*2)/2;return ` <span class="pcs">≈ ${n} шт</span>`;}
+const agg={};
+let html='';
+for(const[key,meals]of Object.entries(WEEK)){
+  const [name,typ]=key.split('|');const cls=typ==='трен'?'trn':'rst';
+  let t={k:0,p:0,f:0,c:0};let ms='';
+  const TIMES=typ==='трен'?TRAIN_T:REST_T;
+  meals.forEach(([mn,items],idx)=>{
+    let mt={k:0,p:0,f:0,c:0};let lines=items.map(([id,g])=>{const x=M[id];if(!x)return '';const r=g/100;const ik=x.k*r,ip=x.p*r,iff=x.f*r,ic=x.cb*r;
+      t.k+=ik;t.p+=ip;t.f+=iff;t.c+=ic;mt.k+=ik;mt.p+=ip;mt.f+=iff;mt.c+=ic;
+      // для списка покупок смузи раскладываем на ингредиенты
+      if(id==='smuzi_base'){SMUZI.forEach(([sid,sg])=>{agg[sid]=(agg[sid]||0)+sg;});} else {agg[id]=(agg[id]||0)+g;}
+      let recipe='';
+      if(id==='smuzi_base'){
+        const lab={whey:'протеин',banan:'банан',ovsjanka:'овсянка',yagody:'ягоды (заморож. черника/смородина)',rast_moloko:'раст. молоко'};
+        const parts=SMUZI.map(([sid,sg])=>{const sx=M[sid];const unit=sid==='rast_moloko'?'мл':'г';const pc=sx&&sx.gpp?` (≈${Math.round(sg/sx.gpp)} шт)`:'';return `<b>${lab[sid]||cleanName(sx.n)} ${sg} ${unit}</b>${pc}`;});
+        recipe=`<div class="recipe">🥤 База в блендер: ${parts.join(' · ')} · <b>+ наполнитель дня (строка ниже)</b></div>`;
+      }
+      const hasSm=items.some(it=>it[0]==='smuzi_base');const nm=id==='smuzi_base'?'Смузи (база)':(id==='whey'&&hasSm?`➕ изолят в ТОТ ЖЕ блендер (итого ${30+g} г протеина в смузи)`:cleanName(x.n));
+      return `<div class="it"><span class="itn">${nm} <b>${Math.round(g)}${id==='smuzi_base'?'мл':'г'}</b>${pcsLabel(x,g)}</span><span class="itk">${Math.round(ik)}к · Б${ip.toFixed(0)} Ж${iff.toFixed(0)} У${ic.toFixed(0)}</span></div>${recipe}`;}).join('');
+    const tm=TIMES[idx]?`<span style="color:var(--ink)">${TIMES[idx]}</span> · `:'';
+    ms+=`<div class="meal"><div class="mn">${tm}${mn}<span class="mkb">${Math.round(mt.k)} ккал · Б${mt.p.toFixed(0)} · Ж${mt.f.toFixed(0)} · У${mt.c.toFixed(0)}</span></div>${lines}</div>`;});
+  html+=`<section class="day ${cls}"><div class="dh"><span class="dn">${name}</span><span class="bd">${typ==='трен'?'ТРЕНИРОВКА':'ОТДЫХ'}</span></div>
+   ${ms}<div class="tot"><span>≈ ${Math.round(t.k)} ккал</span><span class="mac"><span class="p">Б${t.p.toFixed(0)}</span><span class="f">Ж${t.f.toFixed(0)}</span><span class="c">У${t.c.toFixed(0)}</span></span></div></section>`;
+}
+document.getElementById('days').innerHTML=html;
+let rows='';
+KD_CATORD.forEach(cat=>{const ids=Object.keys(agg).filter(id=>M[id]&&M[id].c===cat);if(!ids.length)return;
+  rows+=`<tr><td colspan="3" style="padding-top:9px"><b style="color:${KD_CATCOL[cat]}">${cat}</b></td></tr>`;
+  ids.forEach(id=>{const p=M[id];const grams=agg[id];const pk=kdPacks(grams,p);
+    rows+=`<tr><td><a href="${kdUrl(p)}" target="_blank">${cleanName(p.n)}</a></td><td class="gr">≈ ${Math.round(grams)} г / нед</td><td class="qty">${pk.units} × ${pk.label}</td></tr>`;});});
+document.getElementById('shop').innerHTML=rows;
+</script>
+</body></html>
