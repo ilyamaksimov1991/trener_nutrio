@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тестовое меню на неделю для ЖКТ: 3 тренировочных и 4 нетренировочных дня, без куриной грудки, лука, чеснока и смузи.">
+  <title>Меню на неделю v3 — тест для ЖКТ</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #66717d;
+      --line: #dfe4e8;
+      --surface: #fff;
+      --bg: #f5f6f3;
+      --train: #c9572a;
+      --rest: #177d72;
+      --protein: #2563a6;
+      --fat: #a46a08;
+      --carb: #2b7d45;
+      --ok: #237a42;
+      --info-bg: #edf6f4;
+      --info-line: #9bc7be;
+      --warn-bg: #fff8e8;
+      --warn-line: #e5c66c;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    a { color: #185d99; text-underline-offset: 2px; }
+    .wrap { width: min(1180px, 100%); margin: 0 auto; padding: 16px; }
+    .topnav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .topnav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .topnav a[aria-current="page"] { color: #fff; background: var(--ink); border-color: var(--ink); }
+    .pagehead { padding: 2px 0 16px; border-bottom: 1px solid var(--line); }
+    .eyebrow { margin: 0 0 5px; color: var(--rest); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 900px; font-size: clamp(24px, 4vw, 38px); line-height: 1.12; }
+    .lead { max-width: 920px; margin: 10px 0 0; color: var(--muted); font-size: 15px; }
+    .target-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin: 16px 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .target { min-width: 0; padding: 11px 12px; border-right: 1px solid var(--line); }
+    .target:last-child { border-right: 0; }
+    .target span { display: block; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .target strong { display: block; margin-top: 2px; font-size: 16px; white-space: nowrap; }
+    .target .good { color: var(--ok); }
+    .notice {
+      margin: 14px 0;
+      padding: 11px 13px;
+      border: 1px solid var(--info-line);
+      border-radius: 8px;
+      background: var(--info-bg);
+    }
+    .notice.warning { background: var(--warn-bg); border-color: var(--warn-line); }
+    .toolbar, .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .toolbar { margin: 20px 0 12px; }
+    .toolbar h2, .section-head h2 { margin: 0; font-size: 20px; }
+    .section-head { margin-bottom: 10px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .segments { display: inline-flex; overflow: hidden; border: 1px solid #cfd6dc; border-radius: 7px; background: #fff; }
+    .segments button {
+      min-height: 34px;
+      padding: 7px 11px;
+      border: 0;
+      border-right: 1px solid #cfd6dc;
+      background: #fff;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .segments button:last-child { border-right: 0; }
+    .segments button[aria-pressed="true"] { color: #fff; background: var(--ink); }
+    .days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+    .day {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      break-inside: avoid;
+    }
+    .day[hidden] { display: none; }
+    .day-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      color: #fff;
+      background: var(--rest);
+    }
+    .day.train .day-head { background: var(--train); }
+    .day-name { margin: 0; font-size: 17px; }
+    .day-focus { margin-top: 2px; font-size: 11px; opacity: .9; }
+    .day-type { font-size: 10px; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
+    .day-total { text-align: right; }
+    .day-total strong { display: block; font-size: 15px; white-space: nowrap; }
+    .day-total span { display: block; margin-top: 1px; font-size: 11px; white-space: nowrap; }
+    .meal { display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 10px; padding: 11px 14px; border-bottom: 1px solid #edf0f2; }
+    .meal:last-child { border-bottom: 0; }
+    .meal-time { padding-top: 1px; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .meal-title { margin: 0 0 3px; font-size: 13px; }
+    .meal-items { color: #38434e; font-size: 12px; }
+    .meal-items a { color: inherit; text-decoration-color: #b7c0c8; }
+    .meal-note { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .meal-macros { min-width: 108px; text-align: right; color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .meal-macros strong { display: block; color: var(--ink); font-size: 12px; }
+    .macro-p { color: var(--protein); }
+    .macro-f { color: var(--fat); }
+    .macro-c { color: var(--carb); }
+    .band { margin-top: 26px; padding-top: 20px; border-top: 2px solid var(--ink); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .plain-list { margin: 0; padding-left: 20px; }
+    .plain-list li { margin: 0 0 7px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 9px 11px; border-bottom: 1px solid #edf0f2; text-align: left; vertical-align: top; }
+    th { color: var(--muted); background: #fafbfa; font-size: 10px; text-transform: uppercase; white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .shop-group td { padding-top: 13px; color: var(--rest); background: #f8faf9; font-weight: 900; text-transform: uppercase; }
+    .product-name { font-weight: 700; }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .check-day { min-width: 0; padding: 10px; border-right: 1px solid var(--line); }
+    .check-day:last-child { border-right: 0; }
+    .check-day strong { display: block; font-size: 12px; }
+    .check-day span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .check-day b { color: var(--ok); }
+    .print-btn {
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid var(--ink);
+      border-radius: 6px;
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    footer { margin: 24px 0 8px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    @media (max-width: 900px) {
+      .target-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .target { border-bottom: 1px solid var(--line); }
+      .target:nth-child(2n) { border-right: 0; }
+      .target:last-child { grid-column: 1 / -1; border-bottom: 0; }
+      .days, .split { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .check-day { border-bottom: 1px solid var(--line); }
+      .check-day:nth-child(2n) { border-right: 0; }
+      .check-day:last-child { grid-column: 1 / -1; border-bottom: 0; }
+    }
+    @media (max-width: 560px) {
+      .wrap { padding: 12px; }
+      h1 { font-size: 27px; }
+      .meal { grid-template-columns: 54px minmax(0, 1fr); }
+      .meal-macros { grid-column: 2; min-width: 0; text-align: left; }
+      .meal-macros strong, .meal-macros span { display: inline; margin-right: 7px; }
+      .day-head { grid-template-columns: minmax(0, 1fr); }
+      .day-total { text-align: left; }
+      .day-total strong, .day-total span { display: inline; margin-right: 8px; }
+      .segments { width: 100%; }
+      .segments button { flex: 1; padding-inline: 6px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+    @media print {
+      body { background: #fff; font-size: 11px; }
+      .wrap { width: 100%; padding: 0; }
+      .topnav, .toolbar .segments, .print-btn { display: none !important; }
+      .days { grid-template-columns: 1fr 1fr; gap: 7px; }
+      .day { break-inside: avoid; }
+      .meal { padding: 6px 8px; grid-template-columns: 48px minmax(0, 1fr) auto; }
+      .band { margin-top: 16px; padding-top: 12px; }
+      a { color: inherit; text-decoration: none; }
+      @page { size: A4; margin: 8mm; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="topnav" aria-label="Разделы сайта">
+      <a href="index.html">Хаб</a>
+      <a href="menu_nedeli_v3.html" aria-current="page">Меню v3</a>
+      <a href="menu_nedeli_v2.html">v2, архив</a>
+      <a href="produkty.html">Продукты</a>
+      <a href="konstruktor_dnya.html">Конструктор</a>
+    </nav>
+    <header class="pagehead">
+      <p class="eyebrow">Тестовая неделя для ЖКТ · версия 3</p>
+      <h1>Семь дней без куриной грудки и скрытых триггеров</h1>
+      <p class="lead">Три тренировочных и четыре нетренировочных дня. Крупы остаются основой, белок чередуется, а ягоды и овощи распределены по дням фиксированными порциями. Без смузи, обычного молока, лука, чеснока и готовых маринадов.</p>
+    </header>
+    <section class="target-grid" aria-label="Цели и среднее за неделю">
+      <div class="target"><span>Калории, цель</span><strong>2400–2480</strong></div>
+      <div class="target"><span>Белок, цель</span><strong>155–165 г</strong></div>
+      <div class="target"><span>Жиры, цель</span><strong>65–72 г</strong></div>
+      <div class="target"><span>Углеводы, цель</span><strong>295–320 г</strong></div>
+      <div class="target"><span>Среднее v3</span><strong class="good" id="weekAverage">считаю...</strong></div>
+    </section>
+    <div class="notice">
+      <strong>Как взвешивать.</strong> Овсянку, рис и гречку — сухими; мясо и рыбу — сырыми до приготовления; тунца — после слива жидкости; овощи и фрукты — съедобную часть. Яйцо С1 в расчёте = 50 г съедобной части. Масло взвешивать отдельно.
+    </div>
+    <div class="notice warning">
+      <strong>Важно для ЖКТ.</strong> Это консервативная тестовая неделя, а не гарантия отсутствия симптомов и не пожизненная диета. Новые продукты и замены в эти семь дней не добавлять: иначе будет непонятно, на что была реакция.
+    </div>
+    <div class="notice">
+      <strong>Если перекус кажется объёмным.</strong> Раздели его на две части с интервалом 45–60 минут, но не меняй продукты и их суммарный вес. Для отслеживания запиши обе части как один приём.
+    </div>
+    <div class="toolbar">
+      <h2>План по дням</h2>
+      <div class="segments" role="group" aria-label="Фильтр дней">
+        <button type="button" data-filter="all" aria-pressed="true">Вся неделя</button>
+        <button type="button" data-filter="train" aria-pressed="false">Тренировки</button>
+        <button type="button" data-filter="rest" aria-pressed="false">Отдых</button>
+      </div>
+    </div>
+    <section class="days" id="days" aria-live="polite"></section>
+    <section class="band">
+      <div class="section-head">
+        <div><h2>Проверка КБЖУ</h2><p>Страница считает каждый ингредиент из единой базы на 100 г.</p></div>
+      </div>
+      <div class="check-grid" id="macroCheck"></div>
+      <div class="notice" id="checkSummary"></div>
+    </section>
+    <section class="band">
+      <div class="section-head">
+        <div><h2>Как чередовать ягоды</h2><p>Это стартовые порции для отслеживания ЖКТ, а не равноценные замены по калориям.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Продукт</th><th scope="col" class="num">Порция</th><th scope="col">Дни в этом меню</th><th scope="col">Как есть</th></tr></thead>
+          <tbody>
+            <tr><td class="product-name">Клубника</td><td class="num">100 г</td><td>Вт, Пт, Вс</td><td>Свежая или размороженная без сиропа.</td></tr>
+            <tr><td class="product-name">Малина</td><td class="num">60 г</td><td>Пн, Ср, Сб</td><td>Свежая или размороженная; хорошо разжевать.</td></tr>
+            <tr><td class="product-name">Голубика</td><td class="num">40 г</td><td>Чт</td><td>Свежая, промытая и обсушенная.</td></tr>
+            <tr><td class="product-name">Киви</td><td class="num">100 г</td><td>По плану внутри дней</td><td>Вес мякоти без кожуры.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice warning">
+        <strong>Для чистого наблюдения.</strong> В один приём использовать только указанную ягоду и порцию; не делать ягодную смесь и не превращать её в смузи. Если новый продукт дал симптомы, вернуть предыдущий переносимый вариант и записать реакцию.
+      </div>
+    </section>
+    <section class="band">
+      <div class="section-head">
+        <div><h2>Как готовить</h2><p>Готовые инструкции для жены: вес указан до приготовления.</p></div>
+        <button class="print-btn" type="button" onclick="window.print()">Печать меню</button>
+      </div>
+      <div class="split">
+        <div>
+          <h3>База</h3>
+          <ul class="plain-list">
+            <li><strong>Каши:</strong> только на воде. Рис можно разварить сильнее — так он мягче по текстуре.</li>
+            <li><strong>Яйца:</strong> варёные или омлет без молока. Масло брать только в указанном количестве.</li>
+            <li><strong>Заготовки:</strong> крупы можно готовить на 2–3 дня, мясо и рыбу — на 1–2 дня.</li>
+            <li><strong>Овощи:</strong> взвешивать сырыми и готовить до мягкости. Масло брать из того же приёма пищи, не добавлять сверху.</li>
+            <li><strong>Вкус:</strong> соль, укроп, петрушка, немного лимона при переносимости. Смеси специй проверять на лук и чеснок.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Белок</h3>
+          <ul class="plain-list">
+            <li><strong>Бедро индейки:</strong> нарезать, посолить, добавить 30–50 мл воды и тушить под крышкой 25–30 минут. Оно заметно сочнее грудки.</li>
+            <li><strong>Хек, минтай, форель:</strong> запечь в пергаменте при 180 °C примерно 15–20 минут, до полной готовности.</li>
+            <li><strong>Говядина:</strong> нарезать небольшими кусочками и тушить под крышкой до мягкости без лука, чеснока и соуса.</li>
+            <li><strong>Тунец:</strong> слить жидкость, смешать с огурцом и положить на хлеб; соус не добавлять.</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Морковь и кабачок: просто повторить</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Продукт</th><th scope="col" class="num">Сырой вес</th><th scope="col">Вариант 1</th><th scope="col">Вариант 2</th><th scope="col">Готово, когда</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="product-name">Морковь</td><td class="num">100 г</td>
+              <td>Очистить, нарезать кружками и варить 10–15 минут.</td>
+              <td>Нарезать брусками, положить на пергамент и запекать при 180 °C 25–30 минут. Добавить только масло, указанное в этом приёме.</td>
+              <td>Легко прокалывается вилкой, без жёсткой корочки.</td>
+            </tr>
+            <tr>
+              <td class="product-name">Кабачок</td><td class="num">150 г</td>
+              <td>Нарезать кубиками, добавить 2–3 ст. л. воды и тушить под крышкой 8–12 минут.</td>
+              <td>Нарезать полукружьями, положить на пергамент и запекать при 180 °C 15–20 минут. Масло — только по меню.</td>
+              <td>Мягкий внутри, без сильной зажарки.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Остальные овощи и зелень</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Продукт</th><th scope="col" class="num">Сырой вес</th><th scope="col">Что сделать</th></tr></thead>
+          <tbody>
+            <tr><td class="product-name">Брокколи</td><td class="num">75 г</td><td>Взять только соцветия. Варить или готовить на пару 6–8 минут до мягкости.</td></tr>
+            <tr><td class="product-name">Баклажан</td><td class="num">75 г</td><td>Нарезать кубиками и запекать на пергаменте при 180 °C 20–25 минут. Масло — только указанное в приёме.</td></tr>
+            <tr><td class="product-name">Стручковая фасоль</td><td class="num">75 г</td><td>Свежую или замороженную варить 8–10 минут либо готовить на пару 10–12 минут.</td></tr>
+            <tr><td class="product-name">Огурец</td><td class="num">по меню</td><td>Промыть, при чувствительности снять кожицу, нарезать. Соус не добавлять.</td></tr>
+            <tr><td class="product-name">Шпинат</td><td class="num">50 г</td><td>Промыть прохладной водой, обсушить и съесть сырым. Увядшие листья убрать.</td></tr>
+            <tr><td class="product-name">Салат романо</td><td class="num">50 г</td><td>Разобрать на листья, промыть прохладной водой, обсушить и нарезать. Есть сырым без соуса.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="notice warning">
+        <strong>Не добавлять при готовке:</strong> лук, чеснок, готовые маринады, мёд, сливочные соусы и смеси специй с неизвестным составом. Овощи не зажаривать до хруста на тестовой неделе.
+      </div>
+    </section>
+    <section class="band">
+      <div class="section-head">
+        <div><h2>Закупка на 7 дней</h2><p>Точные количества собраны из меню автоматически.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Продукт</th><th scope="col" class="num">Нужно</th><th scope="col">Как купить</th></tr></thead>
+          <tbody id="shopping"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="band">
+      <div class="section-head">
+        <div><h2>База расчёта</h2><p>Выбирай товар по ссылке и сравни КБЖУ с этикеткой конкретной партии.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Продукт</th><th scope="col" class="num">ккал</th><th scope="col" class="num">Б</th><th scope="col" class="num">Ж</th><th scope="col" class="num">У</th><th scope="col">Основание</th></tr></thead>
+          <tbody id="productBase"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="band">
+      <div class="section-head"><h2>Правила тестовой недели</h2></div>
+      <div class="split">
+        <div>
+          <h3>Не добавлять</h3>
+          <ul class="plain-list">
+            <li>лук и чеснок, включая порошки в приправах и готовых продуктах;</li>
+            <li>яблоки, груши, бананы, мёд, пастилу, сухофрукты и фруктовые пюре;</li>
+            <li>смузи, соки, обычное и растительное молоко;</li>
+            <li>орехи, грибы, другие бобовые, цветную капусту и овощные смеси; брокколи и стручковую фасоль есть только в порции по меню;</li>
+            <li>котлеты, маринады, сливочные соусы и продукты с сахарными спиртами.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Записывать после еды</h3>
+          <ul class="plain-list">
+            <li>газы, вздутие и тяжесть через 1–3 часа по шкале 0–3;</li>
+            <li>срочность позыва и каждый поход в туалет;</li>
+            <li>тип стула по Бристольской шкале;</li>
+            <li>ощущение полного или неполного опорожнения;</li>
+            <li>утром — вес, состояние живота и ночной дискомфорт.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="notice warning">
+        <strong>Стоп-сигналы.</strong> Кровь в стуле, чёрный стул, лихорадка, ночная диарея, нарастающая боль, обезвоживание или непреднамеренное снижение веса — повод не продолжать эксперимент самостоятельно и обратиться к врачу.
+      </div>
+    </section>
+    <footer>
+      Расчёт проверен 19.07.2026. Точность относится к указанным значениям на 100 г; натуральные продукты и партии поставщиков могут отличаться. Low-FODMAP этап используют временно с последующей проверкой переносимости, а не как постоянный запретительный рацион. Основа подхода: <a href="https://www.monashfodmap.com/ibs-central/diets/" target="_blank" rel="noopener">три этапа Monash FODMAP</a>, <a href="https://www.monashfodmap.com/blog/low-fodmap-shopping-list/" target="_blank" rel="noopener">порции овощей Monash</a> и <a href="https://www.monashfodmap.com/blog/getting-enough-fibre/" target="_blank" rel="noopener">порции фруктов и клетчатки</a>.
+    </footer>
+  </main>
+  <script>
+    var TARGET = { kcal: [2400, 2480], p: [155, 165], f: [65, 72], c: [295, 320] };
+    function searchUrl(query) { return "https://vkusvill.ru/search/?q=" + encodeURIComponent(query); }
+    var PRODUCTS = {
+      whey: { name: "Изолят NOW Sports", k: 370, p: 85, f: 3, c: 4, group: "Белок", note: "этикетка используемого изолята", buy: "1 банка; нужно 210 г" },
+      turkey: { name: "Филе бедра индейки ГП", k: 142.8, p: 15.9, f: 8.8, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/file-bedra-indeyki-gp-31519/", note: "ВкусВилл, выбранный SKU", buy: "1,1 кг на развес" },
+      beef: { name: "Вырезка говяжья", k: 148.5, p: 19.8, f: 7.7, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/vyrezka-govyazhya-72271/", note: "ВкусВилл, выбранный SKU", buy: "150–200 г на развес" },
+      hake: { name: "Хек, филе порционное зам.", k: 92.4, p: 16.8, f: 2.8, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/khek-file-portsionnoe-zam-76770/", note: "ВкусВилл, значение поставщика в расчёте", buy: "2 упаковки по 500 г" },
+      pollock: { name: "Минтай, филе без кожи зам.", k: 89, p: 20, f: 1, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/mintay-file-bez-kozhi-109313/", note: "ВкусВилл, выбранный SKU", buy: "около 600 г на развес" },
+      trout: { name: "Форель, хвостовая часть зам.", k: 121, p: 19, f: 5, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/forel-kusok-khvostovaya-chast-zam-64823/", note: "ВкусВилл, выбранный SKU", buy: "2 упаковки по 400 г" },
+      tuna: { name: "Тунец скипджек натуральный", k: 101.1, p: 23.7, f: 0.7, c: 0, group: "Белок", url: "https://vkusvill.ru/goods/tunets-skipdzhek-file-naturalnyy-94533/", note: "ВкусВилл, выбранный SKU", buy: "3 банки по 140 г" },
+      egg: { name: "Яйца С1", k: 150, p: 13, f: 11, c: 1, group: "Белок", url: searchUrl("яйца С1"), note: "расчётная база; 1 яйцо = 50 г", buy: "16 шт.; взять 2 упаковки по 10" },
+      oats: { name: "Геркулес «Русский продукт»", k: 360, p: 12, f: 6, c: 62, group: "Крупы и хлеб", url: "https://vkusvill.ru/goods/gerkules-russkiy-produkt-traditsionnyy-500-g-55980/", note: "ВкусВилл, выбранный SKU", buy: "1 упаковка 500 г" },
+      rice: { name: "Рис «Националь Краснодарский»", k: 360, p: 6.5, f: 0.5, c: 83, group: "Крупы и хлеб", url: "https://vkusvill.ru/goods/ris-natsional-krasnodarskiy-900-g-56464/", note: "ВкусВилл, выбранный SKU", buy: "1 упаковка 900 г" },
+      buck: { name: "Гречка «Мистраль Ядрица»", k: 351, p: 12, f: 3.4, c: 64.2, group: "Крупы и хлеб", url: "https://vkusvill.ru/goods/krupa-grechnevaya-mistral-yadritsa-900-g-32680.html", note: "ВкусВилл, выбранный SKU", buy: "1 упаковка 900 г" },
+      bread: { name: "Хлеб «Здоровый рацион» б/г", k: 219.1, p: 3.9, f: 2.7, c: 44.8, group: "Крупы и хлеб", url: "https://vkusvill.ru/goods/izdelie-kh-b-zdorovyy-ratsion-s-sorgovoy-mukoy-bez-glyutena-zam-114421.html", note: "ВкусВилл, выбранный SKU", buy: "около 1,1 кг; хранить замороженным" },
+      crisp: { name: "Хлебцы Take a Bite рисово-гречневые", k: 360, p: 9, f: 2, c: 72, group: "Крупы и хлеб", url: "https://vkusvill.ru/goods/khlebtsy-take-a-bite-risovo-grechnevye-bez-glyutena-150-g-116492/", note: "ВкусВилл, выбранный SKU", buy: "3 упаковки по 150 г" },
+      strawberry: { name: "Клубника", k: 33, p: 0.7, f: 0.4, c: 7, group: "Овощи и фрукты", url: searchUrl("клубника замороженная"), note: "среднее справочное значение", buy: "300 г" },
+      raspberry: { name: "Малина замороженная", k: 34, p: 1.3, f: 0.3, c: 7, group: "Овощи и фрукты", url: "https://vkusvill.ru/goods/malina-planeta-vitaminov-zamorozhennaya-250-g-106635.html", note: "ВкусВилл, выбранный SKU", buy: "1 упаковка 250 г; нужно 180 г" },
+      blueberry: { name: "Голубика", k: 57, p: 0.7, f: 0.3, c: 14.5, group: "Овощи и фрукты", url: "https://vkusvill.ru/goods/golubika-125-g-20082.html", note: "среднее справочное значение", buy: "1 упаковка 125 г; нужно 40 г" },
+      kiwi: { name: "Киви", k: 48, p: 0.9, f: 0.5, c: 11, group: "Овощи и фрукты", url: searchUrl("киви"), note: "среднее справочное значение", buy: "800 г съедобной части" },
+      zucchini: { name: "Кабачок", k: 20, p: 1, f: 0.3, c: 4, group: "Овощи и фрукты", url: searchUrl("кабачок"), note: "среднее справочное значение", buy: "600 г" },
+      broccoli: { name: "Брокколи, соцветия", k: 34, p: 2.8, f: 0.4, c: 6.6, group: "Овощи и фрукты", url: searchUrl("брокколи свежая"), note: "среднее справочное значение", buy: "1 маленький кочан; нужно 75 г соцветий" },
+      eggplant: { name: "Баклажан", k: 25, p: 1, f: 0.2, c: 6, group: "Овощи и фрукты", url: searchUrl("баклажан свежий"), note: "среднее справочное значение", buy: "1 маленький; нужно 75 г" },
+      greenBean: { name: "Фасоль стручковая", k: 31, p: 1.8, f: 0.2, c: 7, group: "Овощи и фрукты", url: "https://vkusvill.ru/goods/fasol-struchkovaya-16091/", note: "среднее справочное значение", buy: "1 упаковка; нужно 75 г" },
+      carrot: { name: "Морковь", k: 35, p: 1, f: 0.2, c: 8, group: "Овощи и фрукты", url: searchUrl("морковь"), note: "среднее справочное значение", buy: "700 г" },
+      cucumber: { name: "Огурец", k: 14, p: 0.8, f: 0.1, c: 3, group: "Овощи и фрукты", url: searchUrl("огурцы"), note: "среднее справочное значение", buy: "500 г" },
+      spinach: { name: "Шпинат свежий", k: 22.3, p: 2.9, f: 0.3, c: 2, group: "Овощи и фрукты", url: "https://vkusvill.ru/goods/shpinat-121750/", note: "ВкусВилл, выбранный SKU", buy: "1 упаковка 50 г" },
+      romaine: { name: "Салат романо", k: 17, p: 1.2, f: 0.3, c: 3.3, group: "Овощи и фрукты", url: "https://vkusvill.ru/goods/salat-latuk-romano-53448/", note: "среднее справочное значение", buy: "1 кочан; нужно 50 г" },
+      oil: { name: "Оливковое масло", k: 900, p: 0, f: 100, c: 0, group: "Жиры", url: searchUrl("масло оливковое extra virgin"), note: "100% масло", buy: "1 бутылка; нужно 145 г" }
+    };
+    function item(id, g) { return { id: id, g: g }; }
+    function meal(time, title, items, note) { return { time: time, title: title, items: items, note: note || "" }; }
+    var WEEK = [
+      { name: "Понедельник", short: "Пн", type: "train", focus: "индейка · тунец · хек", meals: [
+        meal("06:45", "До тренировки", [item("whey", 30), item("crisp", 50)], "Изолят только с водой."),
+        meal("09:30", "Овсянка, яйца и малина", [item("oats", 60), item("egg", 100), item("raspberry", 60), item("oil", 5)]),
+        meal("12:30", "Рис с индейкой и брокколи", [item("rice", 80), item("turkey", 150), item("broccoli", 75), item("oil", 5)]),
+        meal("16:00", "Тосты с тунцом", [item("bread", 120), item("tuna", 105), item("kiwi", 100), item("crisp", 40), item("oil", 5)], "Киви и хлебцы съесть отдельно от тостов."),
+        meal("19:00", "Гречка с хеком", [item("buck", 70), item("hake", 180), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Вторник", short: "Вт", type: "rest", focus: "индейка · тунец · форель", meals: [
+        meal("08:30", "Овсянка, яйца и клубника", [item("oats", 75), item("egg", 100), item("strawberry", 100), item("oil", 5)]),
+        meal("11:30", "Изолят, хлеб и киви", [item("whey", 30), item("bread", 100), item("kiwi", 100)], "Изолят только с водой."),
+        meal("14:30", "Рис с индейкой", [item("rice", 80), item("turkey", 150), item("zucchini", 150), item("oil", 5)]),
+        meal("17:30", "Тунец с хлебом и огурцом", [item("crisp", 50), item("bread", 45), item("tuna", 111), item("cucumber", 150)]),
+        meal("20:00", "Гречка с форелью", [item("buck", 70), item("trout", 150), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Среда", short: "Ср", type: "train", focus: "индейка · минтай", meals: [
+        meal("06:45", "До тренировки", [item("whey", 30), item("crisp", 50)], "Изолят только с водой."),
+        meal("09:30", "Рисовая каша, яйца и малина", [item("rice", 70), item("egg", 100), item("raspberry", 60), item("oil", 5)]),
+        meal("12:30", "Гречка с индейкой", [item("buck", 80), item("turkey", 150), item("zucchini", 150), item("oil", 5)]),
+        meal("16:00", "Тосты с индейкой и романо", [item("bread", 120), item("turkey", 152), item("kiwi", 100), item("romaine", 50)], "Романо положить на тосты; киви съесть отдельно."),
+        meal("19:00", "Рис с минтаем", [item("rice", 80), item("pollock", 180), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Четверг", short: "Чт", type: "rest", focus: "индейка · тунец · минтай", meals: [
+        meal("08:30", "Рисовая каша, яйца и киви", [item("rice", 70), item("egg", 100), item("kiwi", 100), item("oil", 5)]),
+        meal("11:30", "Изолят, хлебцы и голубика", [item("whey", 30), item("crisp", 50), item("blueberry", 40)], "Изолят только с водой."),
+        meal("14:30", "Гречка с индейкой и баклажаном", [item("buck", 80), item("turkey", 170), item("eggplant", 75), item("oil", 5)]),
+        meal("17:30", "Тосты с тунцом", [item("bread", 120), item("tuna", 100), item("cucumber", 150), item("oil", 7)]),
+        meal("20:00", "Рис с минтаем", [item("rice", 80), item("pollock", 180), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Пятница", short: "Пт", type: "train", focus: "форель · индейка · хек", meals: [
+        meal("06:45", "До тренировки", [item("whey", 30), item("crisp", 50)], "Изолят только с водой."),
+        meal("09:30", "Тосты, яйца и киви", [item("bread", 100), item("egg", 100), item("kiwi", 100), item("oil", 5)]),
+        meal("12:30", "Рис с форелью и овощами", [item("rice", 80), item("trout", 150), item("zucchini", 150), item("cucumber", 50), item("oil", 7)]),
+        meal("16:00", "Тосты с индейкой и клубникой", [item("bread", 100), item("turkey", 153), item("strawberry", 100), item("crisp", 25)]),
+        meal("19:00", "Гречка с хеком", [item("buck", 80), item("hake", 180), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Суббота", short: "Сб", type: "rest", focus: "индейка · минтай · хек", meals: [
+        meal("08:30", "Тосты, яйца и малина", [item("bread", 100), item("egg", 150), item("raspberry", 60)]),
+        meal("11:30", "Изолят, хлебцы и киви", [item("whey", 30), item("crisp", 50), item("kiwi", 100)], "Изолят только с водой."),
+        meal("14:30", "Рис с индейкой, фасолью и шпинатом", [item("rice", 80), item("turkey", 150), item("greenBean", 75), item("spinach", 50), item("oil", 5)], "Фасоль приготовить, шпинат промыть и подать сырым."),
+        meal("17:30", "Минтай с хлебом и киви", [item("bread", 150), item("pollock", 116), item("kiwi", 100), item("oil", 1)]),
+        meal("20:00", "Гречка с хеком", [item("buck", 70), item("hake", 180), item("carrot", 100), item("oil", 10)])
+      ]},
+      { name: "Воскресенье", short: "Вс", type: "rest", focus: "говядина · минтай · форель", meals: [
+        meal("08:30", "Овсянка, яйца и киви", [item("oats", 70), item("egg", 100), item("kiwi", 100), item("oil", 5)]),
+        meal("11:30", "Изолят, хлеб и клубника", [item("whey", 30), item("bread", 100), item("strawberry", 100)], "Изолят только с водой."),
+        meal("14:30", "Рис с тушёной говядиной", [item("rice", 80), item("beef", 150), item("zucchini", 150), item("oil", 5)]),
+        meal("17:30", "Хлебцы с яйцом и минтаем", [item("crisp", 70), item("egg", 50), item("cucumber", 150), item("pollock", 80)]),
+        meal("20:00", "Гречка с форелью", [item("buck", 80), item("trout", 170), item("carrot", 100), item("oil", 5)])
+      ]}
+    ];
+    function sumItems(items) {
+      return items.reduce(function(sum, current) {
+        var product = PRODUCTS[current.id];
+        var factor = current.g / 100;
+        sum.kcal += product.k * factor;
+        sum.p += product.p * factor;
+        sum.f += product.f * factor;
+        sum.c += product.c * factor;
+        return sum;
+      }, { kcal: 0, p: 0, f: 0, c: 0 });
+    }
+    function addMacros(a, b) { return { kcal: a.kcal + b.kcal, p: a.p + b.p, f: a.f + b.f, c: a.c + b.c }; }
+    function dayTotal(day) {
+      return day.meals.reduce(function(sum, current) { return addMacros(sum, sumItems(current.items)); }, { kcal: 0, p: 0, f: 0, c: 0 });
+    }
+    function inRange(value, range) { return value >= range[0] && value <= range[1]; }
+    function dayPasses(total) {
+      return inRange(total.kcal, TARGET.kcal) && inRange(total.p, TARGET.p) && inRange(total.f, TARGET.f) && inRange(total.c, TARGET.c);
+    }
+    function fixed(value) { return value.toFixed(1).replace(".0", ""); }
+    function ingredientHtml(entry) {
+      var product = PRODUCTS[entry.id];
+      var amount = entry.id === "egg" ? entry.g / 50 + " шт." : entry.g + " г";
+      var name = product.url
+        ? '<a href="' + product.url + '" target="_blank" rel="noopener">' + product.name + "</a>"
+        : product.name;
+      return name + " <strong>" + amount + "</strong>";
+    }
+    function renderDays() {
+      var html = WEEK.map(function(day) {
+        var total = dayTotal(day);
+        var meals = day.meals.map(function(current) {
+          var macros = sumItems(current.items);
+          return '<div class="meal">' +
+            '<div class="meal-time">' + current.time + "</div>" +
+            "<div><h3 class=\"meal-title\">" + current.title + "</h3>" +
+            '<div class="meal-items">' + current.items.map(ingredientHtml).join(" · ") + "</div>" +
+            (current.note ? '<div class="meal-note">' + current.note + "</div>" : "") + "</div>" +
+            '<div class="meal-macros"><strong>' + fixed(macros.kcal) + " ккал</strong>" +
+            '<span><span class="macro-p">Б ' + fixed(macros.p) + '</span> · <span class="macro-f">Ж ' + fixed(macros.f) +
+            '</span> · <span class="macro-c">У ' + fixed(macros.c) + "</span></span></div></div>";
+        }).join("");
+        return '<article class="day ' + day.type + '" data-type="' + day.type + '">' +
+          '<header class="day-head"><div><h3 class="day-name">' + day.name + '</h3><div class="day-focus">' + day.focus + "</div></div>" +
+          '<div class="day-total"><span class="day-type">' + (day.type === "train" ? "Тренировка" : "Отдых") + "</span>" +
+          "<strong>" + fixed(total.kcal) + " ккал</strong><span>Б " + fixed(total.p) + " · Ж " + fixed(total.f) + " · У " + fixed(total.c) +
+          "</span></div></header>" + meals + "</article>";
+      }).join("");
+      document.getElementById("days").innerHTML = html;
+    }
+    function renderChecks() {
+      var totals = WEEK.map(dayTotal);
+      var average = totals.reduce(addMacros, { kcal: 0, p: 0, f: 0, c: 0 });
+      Object.keys(average).forEach(function(key) { average[key] /= WEEK.length; });
+      document.getElementById("weekAverage").textContent =
+        fixed(average.kcal) + " · Б " + fixed(average.p) + " · Ж " + fixed(average.f) + " · У " + fixed(average.c);
+      document.getElementById("macroCheck").innerHTML = WEEK.map(function(day, index) {
+        var total = totals[index];
+        return '<div class="check-day"><strong>' + day.short + " <b>" + (dayPasses(total) ? "в норме" : "проверить") +
+          "</b></strong><span>" + fixed(total.kcal) + " ккал<br>Б " + fixed(total.p) + " · Ж " + fixed(total.f) + " · У " +
+          fixed(total.c) + "</span></div>";
+      }).join("");
+      var failed = totals.filter(function(total) { return !dayPasses(total); }).length;
+      document.getElementById("checkSummary").innerHTML = failed === 0
+        ? "<strong>Проверка пройдена:</strong> все 7 дней входят одновременно во все четыре заданных диапазона. Среднее недели: <strong>" +
+          fixed(average.kcal) + " ккал / Б " + fixed(average.p) + " / Ж " + fixed(average.f) + " / У " + fixed(average.c) + "</strong>."
+        : "<strong>Найдена ошибка:</strong> " + failed + " дн. вышли за целевые диапазоны.";
+      console.assert(failed === 0, "Не все дни входят в заданные КБЖУ");
+    }
+    function renderShopping() {
+      var totals = {};
+      WEEK.forEach(function(day) {
+        day.meals.forEach(function(current) {
+          current.items.forEach(function(entry) { totals[entry.id] = (totals[entry.id] || 0) + entry.g; });
+        });
+      });
+      var groups = ["Белок", "Крупы и хлеб", "Овощи и фрукты", "Жиры"];
+      var rows = "";
+      groups.forEach(function(group) {
+        rows += '<tr class="shop-group"><td colspan="3">' + group + "</td></tr>";
+        Object.keys(totals).filter(function(id) { return PRODUCTS[id].group === group; }).forEach(function(id) {
+          var grams = totals[id];
+          var product = PRODUCTS[id];
+          var amount = id === "egg" ? grams / 50 + " шт." : grams >= 1000 ? fixed(grams / 1000) + " кг" : grams + " г";
+          var name = product.url
+            ? '<a class="product-name" href="' + product.url + '" target="_blank" rel="noopener">' + product.name + "</a>"
+            : '<span class="product-name">' + product.name + "</span>";
+          rows += "<tr><td>" + name + '</td><td class="num"><strong>' + amount + "</strong></td><td>" + product.buy + "</td></tr>";
+        });
+      });
+      document.getElementById("shopping").innerHTML = rows;
+    }
+    function renderProductBase() {
+      document.getElementById("productBase").innerHTML = Object.keys(PRODUCTS).map(function(id) {
+        var product = PRODUCTS[id];
+        var name = product.url
+          ? '<a class="product-name" href="' + product.url + '" target="_blank" rel="noopener">' + product.name + "</a>"
+          : '<span class="product-name">' + product.name + "</span>";
+        return "<tr><td>" + name + '</td><td class="num">' + product.k + '</td><td class="num">' + product.p +
+          '</td><td class="num">' + product.f + '</td><td class="num">' + product.c + "</td><td>" + product.note + "</td></tr>";
+      }).join("");
+    }
+    document.querySelectorAll("[data-filter]").forEach(function(button) {
+      button.addEventListener("click", function() {
+        var filter = button.getAttribute("data-filter");
+        document.querySelectorAll("[data-filter]").forEach(function(other) {
+          other.setAttribute("aria-pressed", String(other === button));
+        });
+        document.querySelectorAll(".day").forEach(function(day) {
+          day.hidden = filter !== "all" && day.getAttribute("data-type") !== filter;
+        });
+      });
+    });
+    renderDays();
+    renderChecks();
+    renderShopping();
+    renderProductBase();
+  </script>
+</body>
+</html>
