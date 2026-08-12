@@ -1,0 +1,558 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Меню недели v7 — черновик, суббота свободная</title>
+<style>
+:root{--ink:#1a2330;--mut:#667085;--line:#dfe5ec;--bg:#f4f6f9;--card:#fff;
+--p:#2f6fed;--f:#e0a106;--c:#16a34a;--fb:#7c3aed;--sg:#be185d;--trn:#e8631a;--rst:#179a86;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;line-height:1.45;}
+.wrap{max-width:1140px;margin:0 auto;padding:16px;}
+.nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.nav a{font-size:12px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 11px;}
+.nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:21px;margin:0 0 3px;} .sub{color:var(--mut);font-size:13px;margin-bottom:12px;}
+.goals{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:12px;}
+.g{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center;}
+.g .l{font-size:10px;text-transform:uppercase;color:var(--mut);} .g .v{font-size:17px;font-weight:800;} .g .t{font-size:10.5px;color:var(--mut);}
+@media(max-width:820px){.goals{grid-template-columns:repeat(3,1fr);}}
+.alert{border-radius:11px;padding:11px 14px;font-size:12.5px;margin-bottom:11px;}
+.a-green{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;}
+.a-blue{background:#eff6ff;border:1px solid #c3ddfd;color:#1e40af;}
+.a-amber{background:#fffbeb;border:1px solid #fde68a;color:#92400e;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:860px){.grid{grid-template-columns:1fr;}}
+.day{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;break-inside:avoid;}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:7px 11px;color:#fff;}
+.trn .dh{background:var(--trn);} .rst .dh{background:var(--rst);} .fre .dh{background:#7c3aed;}
+.dn{font-weight:800;font-size:14px;} .bd{font-size:10px;font-weight:700;}
+.meal{border-bottom:1px solid #f0f2f6;padding:5px 11px 6px;} .meal:last-of-type{border-bottom:none;}
+.mh{font-size:10.5px;text-transform:uppercase;color:var(--mut);font-weight:700;margin-bottom:4px;display:flex;align-items:baseline;gap:6px;}
+.mh .tm{color:var(--ink);font-size:12px;}
+.msum2{font-weight:800;font-size:12.5px;margin-left:auto;color:var(--ink);white-space:nowrap;}
+.batch{background:#fff7ed;color:#9a5a12;font-size:11px;font-weight:700;padding:4px 11px;border-bottom:1px solid #f3d4b3;}
+.vol{display:block;font-size:10.5px;color:#0e7490;background:#ecfeff;border-radius:5px;padding:1px 6px;margin:0 0 3px;width:fit-content;}
+.it{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:1.5px 0;}
+.itn{font-size:12.5px;} .itn b{font-weight:700;} .itn a{color:var(--p);text-decoration:none;}
+.note{display:block;font-size:10.5px;color:var(--mut);font-style:italic;}
+.pcs{color:var(--trn);font-weight:700;font-size:11px;}
+.itk{font-size:10.5px;color:#9aa4b2;white-space:nowrap;}
+.tot{padding:7px 11px;background:#fafbfc;border-top:2px solid var(--ink);font-weight:800;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;}
+.p{color:var(--p);} .f{color:var(--f);} .c{color:var(--c);} .fb{color:var(--fb);} .sg{color:var(--sg);}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px;}
+.panel h2{font-size:15px;margin:0 0 9px;border-bottom:2px solid var(--ink);padding-bottom:6px;}
+.panel h3{font-size:13px;margin:14px 0 6px;} .panel ul{margin:6px 0;padding-left:20px;} .panel li{margin:3px 0;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+td,th{padding:6px 7px;border-bottom:1px solid #eef1f5;text-align:left;vertical-align:top;}
+th{font-size:10.5px;text-transform:uppercase;color:var(--mut);}
+td a{color:var(--p);text-decoration:none;font-weight:600;}
+.q{text-align:right;font-weight:800;white-space:nowrap;width:90px;} .note2{color:var(--mut);font-size:11px;width:36%;}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;}
+@media print{.nav,.btn{display:none;}@page{size:A4;margin:8mm;}body{background:#fff;font-size:11px;}}
+</style></head><body><div class="wrap">
+
+<div class="nav"><a href="index.html">← Хаб</a><a class="cur" href="menu_nedeli_v7.html">Меню v7 (черновик)</a>
+<a href="menu_nedeli_v6.html">v6</a><a href="menu_nedeli_v5.html">v5, архив</a><a href="rotaciya_ovoshchey.html">Ротация овощей</a><a href="produkty.html">Продукты</a><a href="konstruktor_dnya.html">Конструктор</a></div>
+
+<h1>Меню недели v7 <span style="font-size:14px;color:#e8631a">ЧЕРНОВИК</span> — суббота со свободным приёмом</h1>
+<div class="sub">Черновик к разбору в субботу 15 августа. Главное новое: запланированный свободный приём в субботу. Всё остальное — база V6.</div>
+
+<div class="alert a-amber" style="padding:8px 13px;font-size:12.5px;margin-bottom:10px">
+<b>📝 Это черновик.</b> Собран 12 августа под твою просьбу про день послабления. В субботу разберём неделю
+и доведём до рабочей версии. Всё, кроме субботы, — база V6 без изменений.
+</div>
+
+<div class="alert a-red" style="padding:8px 13px;font-size:12.5px;margin-bottom:10px">
+<b>🔴 Зефир — только обычный.</b> Версия «без добавления сахара» (ВкусВилл помечает её «На мальтите») дала
+диарею 6–7 августа. Полиолы — мальтит, ксилит, сорбит, эритрит, изомальт, олигофруктоза — исключены полностью.
+<a href="#pochemu" style="color:#991b1b;font-weight:700">Почему и по каким цифрам →</a>
+</div>
+
+<div class="goals">
+<div class="g"><div class="l">Калории</div><div class="v">2578</div><div class="t">трен 2650 · отдых 2524</div></div>
+<div class="g"><div class="l">Белок</div><div class="v">158 г</div><div class="t">2.26 г/кг</div></div>
+<div class="g"><div class="l">Жиры</div><div class="v">82 г</div><div class="t">ненасыщенные</div></div>
+<div class="g"><div class="l">Углеводы</div><div class="v">300 г</div><div class="t">главный рычаг</div></div>
+<div class="g"><div class="l">Клетчатка</div><div class="v">18 г</div><div class="t">преим. растворимая</div></div>
+<div class="g"><div class="l">Сахар</div><div class="v">43 г</div><div class="t">норма ВОЗ &lt;65</div></div>
+</div>
+
+
+
+<div class="alert a-blue" style="margin-bottom:11px"><b>Ротация баз:</b> рис · паста б/глютена · полента · сорговый хлеб (один приём в день) · овсянка утром.
+<b>Картофель убран</b> — после 300 г было некомфортно, заменён рисом. Хлеб и хлебцы никогда не встречаются в одном приёме.</div>
+<div class="grid"><section class="day trn"><div class="dh"><span class="dn">Понедельник</span><span class="bd">ТРЕНИРОВКА · цель 2660</span></div>
+<div class="batch">👨‍🍳 Готовить: бедро индейки (тушить 25–30 мин). Нарезка — покупная.</div><div class="meal"><div class="mh"><span class="tm">06:45</span>До тренировки · жидкое<span class="msum2">322 ККАЛ · Б28 · Ж2 · У50</span></div><span class="vol">≈62 г на тарелке · жир 2 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>21 г</b> <span class="pcs">7 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">80к · Б2 Ж1 У17</span></div></div><div class="meal"><div class="mh"><span class="tm">09:50</span>Завтрак после тренировки<span class="msum2">542 ККАЛ · Б27 · Ж18 · У69</span></div><span class="vol">≈358 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=киви" target="_blank">Киви</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">90 мг витамина C на 100 г · low-FODMAP до 150 г</span></span><span class="itk">48к · Б1 Ж0 У11</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div></div><div class="meal"><div class="mh"><span class="tm">13:00</span>Обед · рис<span class="msum2">638 ККАЛ · Б40 · Ж22 · У67</span></div><span class="vol">≈390 г на тарелке · жир 22 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a> <b>80 г</b> <span class="pcs">≈192 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:1.5)</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=бедро+индейки" target="_blank">Бедро индейки без кожи</a> <b>190 г</b><span class="note">тушить под крышкой 25–30 мин</span></span><span class="itk">247к · Б34 Ж11 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>10 г</b> <span class="pcs">2 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">90к · Б0 Ж10 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">16:30</span>Перекус · бутерброд<span class="msum2">550 ККАЛ · Б37 · Ж16 · У64</span></div><span class="vol">≈300 г на тарелке · жир 16 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/file-indeyki-kopcheno-varenoe-16552/" target="_blank">Филе индейки копчёно-варёное, нарезка ✓</a> <b>110 г</b><span class="note">ГОТОВОЕ, не готовить · состав: филе индейки + соль · упаковка 100 г</span></span><span class="itk">123к · Б26 Ж2 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>20 г</b> <span class="pcs">≈4 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">120к · Б5 Ж10 У3</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=огурец" target="_blank">Огурец</a> <b>50 г</b><span class="note">очистить от кожуры</span></span><span class="itk">7к · Б0 Ж0 У2</span></div></div><div class="meal"><div class="mh"><span class="tm">19:30</span>Ужин · паста<span class="msum2">590 ККАЛ · Б35 · Ж21 · У64</span></div><span class="vol">≈379 г на тарелке · жир 21 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a> <b>80 г</b> <span class="pcs">≈208 г готового</span><span class="note">СУХОЙ вес · не разваривать</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=бедро+индейки" target="_blank">Бедро индейки без кожи</a> <b>160 г</b><span class="note">тушить под крышкой 25–30 мин</span></span><span class="itk">208к · Б29 Ж10 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>10 г</b> <span class="pcs">2 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">90к · Б0 Ж10 У0</span></div></div>
+<div class="tot"><span>≈ 2643 ккал</span><span class="mac"><span class="p">Б168</span> <span class="f">Ж79</span> <span class="c">У315</span> <span class="fb">клетч 19</span> <span class="sg">сахар 46</span></span></div></section>
+<section class="day rst"><div class="dh"><span class="dn">Вторник 🐟</span><span class="bd">ОТДЫХ · цель 2530</span></div>
+<div class="batch">👨‍🍳 🐟 Готовить: форель — запечь. Свежая, на один день.</div><div class="meal"><div class="mh"><span class="tm">08:30</span>Завтрак<span class="msum2">482 ККАЛ · Б27 · Ж18 · У53</span></div><span class="vol">≈358 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=клубника" target="_blank">Клубника</a> <b>120 г</b></span><span class="itk">40к · Б1 Ж0 У8</span></div></div><div class="meal"><div class="mh"><span class="tm">12:30</span>Обед · рис<span class="msum2">652 ККАЛ · Б42 · Ж20 · У67</span></div><span class="vol">≈391 г на тарелке · жир 20 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a> <b>80 г</b> <span class="pcs">≈192 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:1.5)</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=форель+стейк" target="_blank">Форель радужная, стейк</a> <b>180 г</b><span class="note">омега-3 · плотнее трески вдвое</span></span><span class="itk">306к · Б36 Ж14 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>5 г</b> <span class="pcs">1 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">45к · Б0 Ж5 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">15:30</span>Перекус · жидкий гейнер<span class="msum2">641 ККАЛ · Б41 · Ж24 · У68</span></div><span class="vol">≈153 г на тарелке · жир 24 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=банан" target="_blank">Банан</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">спелый</span></span><span class="itk">95к · Б1 Ж0 У22</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>300 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">135к · Б9 Ж4 У15</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>18 г</b> <span class="pcs">6 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">68к · Б1 Ж1 У14</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>15 г</b> <span class="pcs">≈3 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">90к · Б4 Ж8 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>10 г</b> <span class="pcs">2 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">90к · Б0 Ж10 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">19:00</span>Ужин · бутерброд<span class="msum2">777 ККАЛ · Б41 · Ж22 · У95</span></div><span class="vol">≈348 г на тарелке · жир 22 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=форель+стейк" target="_blank">Форель радужная, стейк</a> <b>170 г</b><span class="note">омега-3 · плотнее трески вдвое</span></span><span class="itk">289к · Б34 Ж14 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>5 г</b> <span class="pcs">1 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">45к · Б0 Ж5 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div></div>
+<div class="tot"><span>≈ 2553 ккал</span><span class="mac"><span class="p">Б152</span> <span class="f">Ж85</span> <span class="c">У283</span> <span class="fb">клетч 17</span> <span class="sg">сахар 46</span></span></div></section>
+<section class="day trn"><div class="dh"><span class="dn">Среда</span><span class="bd">ТРЕНИРОВКА · цель 2660</span></div>
+<div class="batch">👨‍🍳 Готовить: филе индейки (тушить). Паста — 8 мин.</div><div class="meal"><div class="mh"><span class="tm">06:45</span>До тренировки · жидкое<span class="msum2">322 ККАЛ · Б28 · Ж2 · У50</span></div><span class="vol">≈62 г на тарелке · жир 2 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>21 г</b> <span class="pcs">7 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">80к · Б2 Ж1 У17</span></div></div><div class="meal"><div class="mh"><span class="tm">09:50</span>Завтрак после тренировки<span class="msum2">542 ККАЛ · Б27 · Ж18 · У69</span></div><span class="vol">≈358 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=киви" target="_blank">Киви</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">90 мг витамина C на 100 г · low-FODMAP до 150 г</span></span><span class="itk">48к · Б1 Ж0 У11</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div></div><div class="meal"><div class="mh"><span class="tm">13:00</span>Обед · паста<span class="msum2">637 ККАЛ · Б39 · Ж24 · У64</span></div><span class="vol">≈372 г на тарелке · жир 24 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a> <b>80 г</b> <span class="pcs">≈208 г готового</span><span class="note">СУХОЙ вес · не разваривать</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=филе+индейки" target="_blank">Филе индейки</a> <b>150 г</b><span class="note">тушить с водой под крышкой</span></span><span class="itk">165к · Б33 Ж3 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>20 г</b> <span class="pcs">4 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">180к · Б0 Ж20 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">16:30</span>Перекус · бутерброд<span class="msum2">509 ККАЛ · Б34 · Ж13 · У64</span></div><span class="vol">≈285 г на тарелке · жир 13 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/file-indeyki-kopcheno-varenoe-16552/" target="_blank">Филе индейки копчёно-варёное, нарезка ✓</a> <b>100 г</b><span class="note">ГОТОВОЕ, не готовить · состав: филе индейки + соль · упаковка 100 г</span></span><span class="itk">112к · Б24 Ж2 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>15 г</b> <span class="pcs">≈3 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">90к · Б4 Ж8 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=огурец" target="_blank">Огурец</a> <b>50 г</b><span class="note">очистить от кожуры</span></span><span class="itk">7к · Б0 Ж0 У2</span></div></div><div class="meal"><div class="mh"><span class="tm">19:30</span>Ужин · рис<span class="msum2">646 ККАЛ · Б39 · Ж24 · У67</span></div><span class="vol">≈360 г на тарелке · жир 24 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a> <b>80 г</b> <span class="pcs">≈192 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:1.5)</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=филе+индейки" target="_blank">Филе индейки</a> <b>150 г</b><span class="note">тушить с водой под крышкой</span></span><span class="itk">165к · Б33 Ж3 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>20 г</b> <span class="pcs">4 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">180к · Б0 Ж20 У0</span></div></div>
+<div class="tot"><span>≈ 2656 ккал</span><span class="mac"><span class="p">Б167</span> <span class="f">Ж81</span> <span class="c">У314</span> <span class="fb">клетч 18</span> <span class="sg">сахар 46</span></span></div></section>
+<section class="day rst"><div class="dh"><span class="dn">Четверг 🐟</span><span class="bd">ОТДЫХ · цель 2530</span></div>
+<div class="batch">👨‍🍳 🐟 Готовить: треска — в пергаменте 180° 15–20 мин. Свежая, на один день.</div><div class="meal"><div class="mh"><span class="tm">08:30</span>Завтрак<span class="msum2">482 ККАЛ · Б27 · Ж18 · У53</span></div><span class="vol">≈358 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=клубника" target="_blank">Клубника</a> <b>120 г</b></span><span class="itk">40к · Б1 Ж0 У8</span></div></div><div class="meal"><div class="mh"><span class="tm">12:30</span>Обед · паста<span class="msum2">644 ККАЛ · Б42 · Ж18 · У80</span></div><span class="vol">≈439 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a> <b>80 г</b> <span class="pcs">≈208 г готового</span><span class="note">СУХОЙ вес · не разваривать</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/ryba-ikra-i-moreprodukty/" target="_blank">Треска филе</a> <b>200 г</b><span class="note">в пергаменте 180° 15–20 мин</span></span><span class="itk">156к · Б36 Ж1 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>15 г</b> <span class="pcs">3 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">135к · Б0 Ж15 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div></div><div class="meal"><div class="mh"><span class="tm">15:30</span>Перекус · жидкий гейнер<span class="msum2">653 ККАЛ · Б41 · Ж24 · У71</span></div><span class="vol">≈156 г на тарелке · жир 24 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=банан" target="_blank">Банан</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">спелый</span></span><span class="itk">95к · Б1 Ж0 У22</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>300 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">135к · Б9 Ж4 У15</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>21 г</b> <span class="pcs">7 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">80к · Б2 Ж1 У17</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>15 г</b> <span class="pcs">≈3 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">90к · Б4 Ж8 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>10 г</b> <span class="pcs">2 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">90к · Б0 Ж10 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">19:00</span>Ужин · бутерброд<span class="msum2">726 ККАЛ · Б41 · Ж20 · У95</span></div><span class="vol">≈360 г на тарелке · жир 20 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/ryba-ikra-i-moreprodukty/" target="_blank">Треска филе</a> <b>190 г</b><span class="note">в пергаменте 180° 15–20 мин</span></span><span class="itk">148к · Б34 Ж1 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>15 г</b> <span class="pcs">3 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">135к · Б0 Ж15 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div></div>
+<div class="tot"><span>≈ 2505 ккал</span><span class="mac"><span class="p">Б152</span> <span class="f">Ж80</span> <span class="c">У298</span> <span class="fb">клетч 18</span> <span class="sg">сахар 59</span></span></div></section>
+<section class="day trn"><div class="dh"><span class="dn">Пятница</span><span class="bd">ТРЕНИРОВКА · цель 2660</span></div>
+<div class="batch">👨‍🍳 Готовить: котлеты индейки — запечь. Нарезка — покупная.</div><div class="meal"><div class="mh"><span class="tm">06:45</span>До тренировки · жидкое<span class="msum2">311 ККАЛ · Б27 · Ж1 · У48</span></div><span class="vol">≈59 г на тарелке · жир 1 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>18 г</b> <span class="pcs">6 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">68к · Б1 Ж1 У14</span></div></div><div class="meal"><div class="mh"><span class="tm">09:50</span>Завтрак после тренировки<span class="msum2">542 ККАЛ · Б27 · Ж18 · У69</span></div><span class="vol">≈358 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=киви" target="_blank">Киви</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">90 мг витамина C на 100 г · low-FODMAP до 150 г</span></span><span class="itk">48к · Б1 Ж0 У11</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div></div><div class="meal"><div class="mh"><span class="tm">13:00</span>Обед · паста<span class="msum2">609 ККАЛ · Б33 · Ж23 · У66</span></div><span class="vol">≈412 г на тарелке · жир 23 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a> <b>80 г</b> <span class="pcs">≈208 г готового</span><span class="note">СУХОЙ вес · не разваривать</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/kotlety-iz-indeyki-dieticheskie-38076.html" target="_blank">Котлеты из индейки диетические ✓</a> <b>170 г</b><span class="note">запечь без масла сверху</span></span><span class="itk">272к · Б27 Ж17 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>5 г</b> <span class="pcs">1 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">45к · Б0 Ж5 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">16:30</span>Перекус · бутерброд<span class="msum2">520 ККАЛ · Б36 · Ж13 · У64</span></div><span class="vol">≈295 г на тарелке · жир 13 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/file-indeyki-kopcheno-varenoe-16552/" target="_blank">Филе индейки копчёно-варёное, нарезка ✓</a> <b>110 г</b><span class="note">ГОТОВОЕ, не готовить · состав: филе индейки + соль · упаковка 100 г</span></span><span class="itk">123к · Б26 Ж2 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>15 г</b> <span class="pcs">≈3 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">90к · Б4 Ж8 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=огурец" target="_blank">Огурец</a> <b>50 г</b><span class="note">очистить от кожуры</span></span><span class="itk">7к · Б0 Ж0 У2</span></div></div><div class="meal"><div class="mh"><span class="tm">19:30</span>Ужин · рис<span class="msum2">670 ККАЛ · Б33 · Ж23 · У82</span></div><span class="vol">≈420 г на тарелке · жир 23 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a> <b>80 г</b> <span class="pcs">≈192 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:1.5)</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/kotlety-iz-indeyki-dieticheskie-38076.html" target="_blank">Котлеты из индейки диетические ✓</a> <b>170 г</b><span class="note">запечь без масла сверху</span></span><span class="itk">272к · Б27 Ж17 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>5 г</b> <span class="pcs">1 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">45к · Б0 Ж5 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div></div>
+<div class="tot"><span>≈ 2652 ккал</span><span class="mac"><span class="p">Б158</span> <span class="f">Ж79</span> <span class="c">У329</span> <span class="fb">клетч 18</span> <span class="sg">сахар 59</span></span></div></section>
+<section class="day fre"><div class="dh"><span class="dn">Суббота 🍔</span><span class="bd">ПОСЛАБЛЕНИЕ · цель 2560</span></div>
+<div class="batch">👨‍🍳 🍔 День послабления. Готовить только ужин: филе индейки и рис.</div><div class="meal"><div class="mh"><span class="tm">09:00</span>Завтрак — плотный, чтобы не прийти голодным<span class="msum2">542 ККАЛ · Б30 · Ж23 · У54</span></div><span class="vol">≈368 г на тарелке · жир 23 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=клубника" target="_blank">Клубника</a> <b>120 г</b></span><span class="itk">40к · Б1 Ж0 У8</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>10 г</b> <span class="pcs">≈2 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">60к · Б2 Ж5 У2</span></div></div><div class="meal" style="background:#fffbeb"><div class="mh"><span class="tm">13:30</span>🍔 СВОБОДНЫЙ ПРИЁМ<span class="msum2">900 ККАЛ · Б30 · Ж40 · У99</span></div><span class="vol" style="background:#fff7ed;color:#9a5a12">свободный выбор · ориентир Б30 Ж40 У100 · записать в FatSecret в тот же день</span><div class="it"><span class="itn">🍔 СВОБОДНЫЙ ПРИЁМ — что хочешь <span class="pcs">бюджет 900 ккал</span><span class="note">бюджет 900 ккал · ориентир Б30 Ж40 У100 · считать по FatSecret в тот же день</span></span><span class="itk">900к · Б30 Ж40 У99</span></div></div><div class="meal"><div class="mh"><span class="tm">17:00</span>Перекус · белковый<span class="msum2">421 ККАЛ · Б37 · Ж6 · У55</span></div><span class="vol">≈121 г на тарелке · жир 6 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=банан" target="_blank">Банан</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">спелый</span></span><span class="itk">95к · Б1 Ж0 У22</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>300 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">135к · Б9 Ж4 У15</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>21 г</b> <span class="pcs">7 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">80к · Б2 Ж1 У17</span></div></div><div class="meal"><div class="mh"><span class="tm">20:00</span>Ужин · лёгкий, рис<span class="msum2">669 ККАЛ · Б55 · Ж20 · У65</span></div><span class="vol">≈408 г на тарелке · жир 20 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a> <b>80 г</b> <span class="pcs">≈192 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:1.5)</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=филе+индейки" target="_blank">Филе индейки</a> <b>220 г</b><span class="note">тушить с водой под крышкой</span></span><span class="itk">242к · Б48 Ж4 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>15 г</b> <span class="pcs">3 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">135к · Б0 Ж15 У0</span></div></div>
+<div class="tot"><span>≈ 2532 ккал</span><span class="mac"><span class="p">Б152</span> <span class="f">Ж90</span> <span class="c">У273</span> <span class="fb">клетч 15</span> <span class="sg">сахар 0</span></span></div></section>
+<section class="day rst"><div class="dh"><span class="dn">Воскресенье 🐟</span><span class="bd">ОТДЫХ · цель 2530</span></div>
+<div class="batch">👨‍🍳 🐟 Без готовки: тунец из банки + говядина тушёная.</div><div class="meal"><div class="mh"><span class="tm">08:30</span>Завтрак<span class="msum2">490 ККАЛ · Б27 · Ж18 · У56</span></div><span class="vol">≈338 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a> <b>50 г</b> <span class="pcs">≈150 г готового</span><span class="note">СУХОЙ вес · варить ПЛОТНО (1:2.5)</span></span><span class="itk">180к · Б6 Ж3 У31</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>250 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">112к · Б8 Ж4 У12</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a> <b>100 г</b> <span class="pcs">2 шт</span><span class="note">варёное или омлет без молока</span></span><span class="itk">150к · Б13 Ж11 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=киви" target="_blank">Киви</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">90 мг витамина C на 100 г · low-FODMAP до 150 г</span></span><span class="itk">48к · Б1 Ж0 У11</span></div></div><div class="meal"><div class="mh"><span class="tm">12:30</span>Обед · паста<span class="msum2">606 ККАЛ · Б45 · Ж18 · У66</span></div><span class="vol">≈433 г на тарелке · жир 18 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a> <b>80 г</b> <span class="pcs">≈208 г готового</span><span class="note">СУХОЙ вес · не разваривать</span></span><span class="itk">280к · Б6 Ж1 У62</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=тунец+натуральный" target="_blank">Тунец натуральный</a> <b>170 г</b><span class="note">слить жидкость</span></span><span class="itk">170к · Б39 Ж2 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a> <b>60 г</b><span class="note">варить до мягкости</span></span><span class="itk">21к · Б1 Ж0 У5</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>15 г</b> <span class="pcs">3 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">135к · Б0 Ж15 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">15:30</span>Перекус · жидкий гейнер<span class="msum2">653 ККАЛ · Б41 · Ж24 · У71</span></div><span class="vol">≈156 г на тарелке · жир 24 г</span><div class="it"><span class="itn">Изолят сывороточный (спортпит) <b>30 г</b><span class="note">порция 30 г, на воде</span></span><span class="itk">111к · Б26 Ж1 У1</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=банан" target="_blank">Банан</a> <b>100 г</b> <span class="pcs">1 шт</span><span class="note">спелый</span></span><span class="itk">95к · Б1 Ж0 У22</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a> <b>20 г</b> <span class="pcs">1 ст.л.</span><span class="note">вместо мёда</span></span><span class="itk">52к · Б0 Ж0 У13</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a> <b>300 г</b> <span class="pcs">мл</span><span class="note">варить кашу на нём вместо воды</span></span><span class="itk">135к · Б9 Ж4 У15</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a> <b>21 г</b> <span class="pcs">7 шт</span><span class="note">1 хлебец = 3 г · 3.8 ккал/г</span></span><span class="itk">80к · Б2 Ж1 У17</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a> <b>15 г</b> <span class="pcs">≈3 ч.л.</span><span class="note">до 32 г — low-FODMAP · мажем на хлеб/в кашу</span></span><span class="itk">90к · Б4 Ж8 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>10 г</b> <span class="pcs">2 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">90к · Б0 Ж10 У0</span></div></div><div class="meal"><div class="mh"><span class="tm">19:00</span>Ужин · бутерброд<span class="msum2">758 ККАЛ · Б45 · Ж22 · У95</span></div><span class="vol">≈362 г на тарелке · жир 22 г</span><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a> <b>120 г</b> <span class="pcs">полпачки</span><span class="note">пачка 240 г → порция 120 г = полпачки</span></span><span class="itk">300к · Б6 Ж4 У60</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/govyadina-tushenaya-19493.html" target="_blank">Говядина тушёная</a> <b>150 г</b><span class="note">без лука и чеснока</span></span><span class="itk">270к · Б38 Ж14 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a> <b>60 г</b><span class="note">тушить 8–12 мин</span></span><span class="itk">12к · Б1 Ж0 У2</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a> <b>5 г</b> <span class="pcs">1 ч.л.</span><span class="note">9 ккал/г при нулевом объёме</span></span><span class="itk">45к · Б0 Ж5 У0</span></div><div class="it"><span class="itn"><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a> <b>41 г</b> <span class="pcs">1 зефирина</span><span class="note">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</span></span><span class="itk">131к · Б0 Ж0 У32</span></div></div>
+<div class="tot"><span>≈ 2508 ккал</span><span class="mac"><span class="p">Б158</span> <span class="f">Ж83</span> <span class="c">У287</span> <span class="fb">клетч 18</span> <span class="sg">сахар 46</span></span></div></section></div>
+
+<div class="panel">
+<h2>🔧 Правки от 8 августа — по твоим замечаниям</h2>
+<table>
+<tr><th>Что</th><th>Было</th><th>Стало</th><th class="note2">Почему</th></tr>
+<tr><td><b>Хлебцы</b></td><td>35–40 г, считал как ≈7–8 штук</td><td><b>18 г = 6 хлебцев</b></td>
+<td class="note2">Один хлебец весит <b>3 г, а не 5</b> — я считал неверно. По старой граммовке выходило 12–13 штук за раз, это физически не съесть. Потерянные ≈70 ккал вернул рисом, пастой и маслом</td></tr>
+<tr><td><b>Зефир</b></td><td>ссылка на раздел «зефир, пастила»</td>
+<td><b><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">карточка «Зефир ванильный, 250 г»</a></b></td>
+<td class="note2">199 ₽, рейтинг 4.9, в пачке ≈6 зефирин. Сразу в корзину, без выбора.<br>
+Заодно подтвердилось: ВкусВилл сам помечает версии без сахара плашкой <b>«На мальтите»</b> — их узнать легко</td></tr>
+<tr><td><b>Полента</b></td><td>среда, обед</td><td><b>убрана, заменена пастой</b></td>
+<td class="note2">Ты не смог доесть. Полента разваривается ×4, 60 г сухой = 240 г на тарелке, и она тяжёлая. Паста 80 г даёт 208 г и на 80 ккал больше</td></tr>
+</table>
+<div class="alert a-blue" style="margin:10px 0 0">
+<b>Про углеводную базу.</b> Осталось три: рис, паста, хлеб. Это меньше разнообразия, чем хотелось бы —
+<b>гречка и киноа</b> напрашиваются следующими. Обе low-FODMAP, гречка вдобавок другое семейство растений,
+а видов растений у тебя сейчас всего 12 при ориентире 25.
+<b>Но вводить их сейчас нельзя</b> — идёт восстановление после обострения, и новый продукт испортит проверку.
+Вернёмся к этому вместе с ротацией овощей, после трёх спокойных дней.
+</div>
+</div>
+
+<div class="panel">
+<h2>📊 Как теперь распределены калории</h2>
+<table>
+<tr><th>Тип дня</th><th class="q">Ккал</th><th class="q">Дни</th><th class="note2">Почему так</th></tr>
+<tr><td><b style="color:var(--trn)">Тренировочный</b></td><td class="q">≈ 2671</td><td class="q">Пн · Ср · Пт</td>
+<td class="note2">Углеводы вокруг нагрузки идут в мышечный гликоген и в качество подхода</td></tr>
+<tr><td><b style="color:var(--rst)">Отдых</b></td><td class="q">≈ 2534</td><td class="q">Вт · Чт · Сб · Вс</td>
+<td class="note2">В сидячий день лишней энергии деваться некуда</td></tr>
+<tr><td>Среднее за неделю</td><td class="q"><b>2593</b></td><td class="q">—</td>
+<td class="note2">Профицит +143 ккал над поддержкой 2450 ≈ 0.13 кг/нед</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🔀 Что ещё изменилось от V5</h2>
+<table>
+<tr><th>Что</th><th>V5</th><th>V6</th><th class="note2">Почему</th></tr>
+<tr><td><b>Рыбные дни</b></td><td>Вт–Ср форель подряд, Чт–Пт треска подряд — 4 дня рыбы кряду</td>
+<td><b>Вт · Чт · Сб — через день</b></td>
+<td class="note2">Ты просил не подряд. Бонусом: рыба теперь готовится на один день, ничего не разогревается на вторые сутки — а разогретое ты переносишь хуже</td></tr>
+<tr><td><b>Зефир</b></td><td>«Зефир ванильный»</td><td><b>только обычный</b>, «без сахара» запрещён</td>
+<td class="note2">5–7 августа: 21 г → стул 6 · 42 г → срочность 3 · ещё 42 г → ночная диарея</td></tr>
+<tr><td><b>Яйца</b></td><td>26 шт в неделю (3.7 в день)</td><td><b>14 шт (2 в день)</b></td>
+<td class="note2">Холестерин рациона был 668 мг/день при ЛПНП 3.73 и АпоВ 1.08. Белок добран индейкой и говядиной</td></tr>
+<tr><td><b>Нарезка индейки</b></td><td>стояла бы 5 дней из 7</td><td><b>3 дня</b></td>
+<td class="note2">Это переработанное мясо и главный источник натрия. Своё же правило — не чаще 3 раз</td></tr>
+<tr><td><b>Молоко безлактозное</b></td><td>200 мл</td><td><b>250–300 мл</b></td>
+<td class="note2">Кальций был 785 мг при норме 1000. Стало 848 — всё ещё недобор, но меньше</td></tr>
+<tr><td>Шаги</td><td>—</td><td><b>56 000 за неделю</b>, не дневная норма</td>
+<td class="note2">Ты уже ходишь 7 400 в среднем. Дело не в среднем, а в том, что 37% дней ниже 5 000</td></tr>
+</table>
+</div>
+
+<div class="alert a-amber">
+<b>🩹 «Минус-режим» — на дни, пока стул не вернулся к 4–5.</b><br>
+Пока идёт восстановление, клетчатку не поднимаем. Три вычитания из любого дня, посчитаны точно:<br><br>
+<b>1.</b> Убрать банан из жидкого гейнера · <b>2.</b> Геркулес 50 → 40 г · <b>3.</b> Овощи 60 → 30 г<br><br>
+Это <b>−107 ккал и −3.0 г клетчатки</b>: получится <b>15.6 г вместо 18.6</b> — ровно целевой коридор
+восстановления. Калории вернуть <b>10 г оливкового масла (2 ч.л.)</b>, оно не даёт ни клетчатки, ни объёма.
+<br><br>
+<b>Как выйти:</b> три спокойных дня подряд (Бристоль 4–5, газы ≤1) → возвращаешь пункты в обратном порядке,
+по одному раз в два дня. И только после этого начинается <a href="rotaciya_ovoshchey.html">ротация овощей</a>.
+</div>
+
+<div class="panel">
+<h2>📏 Что мерить и когда принимать решение</h2>
+<table>
+<tr><td class="q">Вес</td><td>каждое утро натощак, <b>но решения только по среднему за 7 дней</b></td></tr>
+<tr><td class="q">Талия</td><td>раз в неделю, утром, по пупку, <b>три замера подряд — берёшь средний</b>.
+<b style="color:#dc2626">Пока идёт обострение — не мерить вообще</b>, это будет измерение содержимого кишечника, а не жира</td></tr>
+<tr><td class="q">Шаги</td><td>смотреть недельную сумму, цель <b>56 000</b>. В августе вышло 51 926</td></tr>
+<tr><td class="q">Picooc %</td><td>только тренд за 3–4 недели. Разница в 0.2 п.п. не значит ничего</td></tr>
+</table>
+<div class="alert a-green" style="margin:10px 0 0">
+<b>Решение через 3 недели, 30 августа:</b><br>
+• прибавка <b>≤ 0.3 кг/нед</b> → всё верно, ничего не трогаем;<br>
+• прибавка <b>≥ 0.35 кг/нед</b> и талия выросла → значит поддержка ниже 2450: снимаем <b>150 ккал из дней отдыха</b>
+за счёт масла, хлеба или крупы. <b>Белок, рыбу, мясо и овощи не трогаем никогда;</b><br>
+• вес стоит и силовые встали → добавляем 150 ккал.
+</div>
+</div>
+
+<div class="panel">
+<h2>🏋️ Зал на эти три недели</h2>
+<table>
+<tr><td class="q">Подтягивания</td><td><b>первый подход останавливать на 8 повторах</b> с теми же +5 кг, дальше 8 и 8.
+Три сессии подряд (22.07, 30.07, 05.08) дали одинаковые 10/6/7 — отказ в первом подходе за шесть недель
+не купил ни одного повтора, зато съедает второй и третий. Вес добавляем, только когда все три подхода дадут 8 при RIR 2.
+<br><span class="note">И по спине: на отказных повторах таз раскачивается, поясница уходит в переразгибание. Потолок RIR 1 стоит именно из-за этого.</span></td></tr>
+<tr><td class="q">Не добавлять вес</td><td>жим в Смите 42.5 · сгибание ног 90 · жим гантелей 14 — там уже RIR 0–1, сначала закрепить до RIR 2 во всех подходах</td></tr>
+<tr><td class="q">Вернуть кор</td><td>«пресс в тренажёре» пуст в обеих последних тренировках C. Замена, если неудобно: bird dog или dead bug</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>📋 Что изменилось от V5 к V6</h2>
+<table>
+<tr><th>Что</th><th>V5</th><th>V6</th><th class="note2">Почему</th></tr>
+<tr><td><b>Зефир</b></td><td>«Зефир ванильный», без уточнения</td><td><b>Только обычный.</b> «Без добавления сахара» — запрещён</td>
+<td class="note2">Дозозависимая реакция 5–7 августа: 21 г → стул 6 · 42 г → срочность 3 · ещё 42 г → ночная диарея</td></tr>
+<tr><td><b>Полиолы как класс</b></td><td>правила не было</td><td>мальтит, ксилит, сорбит, эритрит, изомальт, лактит, олигофруктоза, инулин — <b>исключены</b></td>
+<td class="note2">Осмотическая нагрузка плюс фруктаны — двойной удар по твоему главному симптому</td></tr>
+<tr><td>Калории и макросы</td><td>2663 · Б161 Ж80 У324</td><td><b>без изменений</b></td>
+<td class="note2">Факт недели 2645 против плана 2663 — расхождение 0.7%. База съедаема, ломать нечего</td></tr>
+<tr><td>Клетчатка</td><td>19.6 г в плане</td><td><b>пока не поднимаем</b>, держим 14–16 г</td>
+<td class="note2">На фоне стула 6–7 добавлять клетчатку — значит вводить вторую переменную. Возвращаемся к 19–20 после трёх спокойных дней</td></tr>
+<tr><td>Ротация овощей</td><td>—</td><td><b>сдвигается на 3 спокойных дня</b></td>
+<td class="note2">Вводить новый овощ на фоне обострения бессмысленно — реакцию нельзя будет отнести ни к чему</td></tr>
+</table>
+<div class="alert a-green" style="margin:10px 0 0">
+<b>Что НЕ менялось и почему это важно.</b> V5 отработала первую полную неделю с попаданием в план
+на 0.7% — впервые за всё время. Силовые пробили месячное плато сразу в четырёх упражнениях.
+Поэтому структура, продукты, порции и калории остались ровно теми же: <b>меняем один продукт,
+а не план.</b> V5 сохранена отдельной страницей, чтобы можно было сравнить.
+</div>
+</div>
+
+<div class="panel">
+<h2>✓ Проверка КБЖУ по карточкам ВкусВилла</h2>
+<p style="margin:2px 0 8px">Значения со знаком <b>✓</b> взяты с карточки товара, а не по памяти. Остальные — справочные,
+проверяются по мере обновления. Всегда сверяй с этикеткой своей партии.</p>
+<table>
+<tr><th>Продукт</th><th class="q">Ккал/100 г</th><th class="q">Б / Ж</th><th class="note2">Состав и заметки</th></tr>
+<tr><td><a href="https://vkusvill.ru/goods/file-indeyki-kopcheno-varenoe-16552/" target="_blank"><b>Филе индейки копчёно-варёное, нарезка ✓</b></a></td>
+<td class="q">112</td><td class="q">23.7 / 1.9</td>
+<td class="note2"><b>Состав: филе грудки индейки + соль.</b> Готовое, упаковка 100 г, 256 ₽. Заменило «свою запечённую индейку» — готовить не надо.</td></tr>
+<tr><td><a href="https://vkusvill.ru/goods/kotlety-iz-indeyki-dieticheskie-38076.html" target="_blank">Котлеты из индейки диетические ✓</a></td><td class="q">160</td><td class="q">16 / 10</td><td class="note2">запечь или тушить</td></tr>
+<tr><td><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья ✓</a></td><td class="q">360</td><td class="q">12 / 6.5</td><td class="note2">уп. 400 г</td></tr>
+</table>
+<div class="alert a-amber" style="margin-top:10px;margin-bottom:0">
+<b>⚠️ Что нашлось при проверке составов — важное:</b><br>
+• <b>«Ветчина из индейки с травами» содержит сухое молоко</b> — то есть лактозу. Тебе не подходит,
+хорошо, что убрали её ещё на прошлом шаге.<br>
+• <b>«Индейка Дымов копчёная»</b> — нитрит натрия, крахмал, загустители, белка всего 12 г. Не берём.<br>
+• Выбранная нарезка — единственная из трёх с чистым составом. Но копчёно-варёное формально всё же
+переработанное мясо, поэтому в меню она стоит <b>2–3 раза в неделю, а не ежедневно</b>.
+</div>
+</div>
+
+<div class="panel">
+<h2>✅ Самопроверка расчёта</h2>
+<p style="margin:0 0 8px" class="note2">Посчитано скриптом по базе на 100 г, а не на глаз. Что не сошлось — написано честно.</p>
+<table>
+<tr><th>Проверка</th><th class="q">Факт</th><th class="note2">Норма и комментарий</th></tr>
+<tr><td>Порции меньше 5 г</td><td class="q">0 ✓</td><td class="note2">скрипт падает, если появятся</td></tr>
+<tr><td>Овощи не обнулены</td><td class="q">мин 50 г ✓</td><td class="note2">жёсткий пол, автоподбору не отдаются</td></tr>
+<tr><td>Насыщенный жир</td><td class="q">20.7 г = 7.2% ✓</td><td class="note2">ВОЗ &lt; 10% энергии</td></tr>
+<tr><td>Свободный сахар</td><td class="q">50 г = 7.6% ✓</td><td class="note2">ВОЗ &lt; 10%; идеал &lt;5% — не дотягиваем, зефир оставлен осознанно как плотные калории</td></tr>
+<tr><td>Витамин C</td><td class="q">106 мг ✓</td><td class="note2">норма 90 — держится на киви и клубнике</td></tr>
+<tr><td>Калий</td><td class="q">3559 мг ✓</td><td class="note2">норма 3500. По факту прошлой недели было 1950 — потому что овощи съедались на 70%</td></tr>
+<tr><td>Клетчатка</td><td class="q">18.6 г</td><td class="note2">этап; с «минус-режимом» 15.6. Долгосрочная цель 25+</td></tr>
+<tr><td>Жир на приём</td><td class="q">макс 25.8 г</td><td class="note2">потолок 25.5 — превышение на 0.3 г, в пределах округления</td></tr>
+<tr><td>Объём приёма</td><td class="q">макс 439 г ✓</td><td class="note2">потолок 460</td></tr>
+<tr><td>Крупы сухих</td><td class="q">макс 80 г ✓</td><td class="note2">твоё жёсткое правило</td></tr>
+<tr><td>Рыба не подряд</td><td class="q">Вт · Чт · Сб ✓</td><td class="note2">между рыбными днями всегда день мяса</td></tr>
+<tr><td>Хлеб и хлебцы врозь</td><td class="q">0 конфликтов ✓</td><td class="note2">10 хлебцев с хлебом не съесть</td></tr>
+<tr><td>Переработанное мясо</td><td class="q">3 дня ✓</td><td class="note2">правило «не чаще 3»</td></tr>
+<tr><td>Профицит</td><td class="q">+155 ккал ✓</td><td class="note2">≈ 0.14 кг/нед при цели 0.15–0.25 — нижняя граница, осознанно</td></tr>
+</table>
+<div class="alert a-amber" style="margin:10px 0 0">
+<b>Что НЕ сошлось — говорю прямо:</b><br>
+<b>Кальций 848 мг при норме 1000.</b> Поднял молоко с 200 до 250–300 мл, это дало +63 мг. До нормы всё равно
+не хватает: при лактазной недостаточности молочка ограничена, а других источников в рационе мало.
+Варианты — обогащённое кальцием растительное молоко или разговор с врачом о добавке. Своим решением закрывать не буду.
+<br><br>
+<b>Натрий ≈ 2165 мг при норме ВОЗ 2000.</b> Главный вклад — безглютеновый хлеб (около 540 мг в день) и нарезка индейки.
+Хлеб убрать нельзя, он держит плотность калорий. Оценка приблизительная, ±20%: точных цифр с карточек у меня нет.
+<br><br>
+<b>Холестерин ≈ 640 мг.</b> Яйца сократил вдвое, но выросла доля мяса. Модель грубая. Важнее то, что
+насыщенный жир 7.2% энергии — а он влияет на липиды сильнее пищевого холестерина.
+<br><br>
+<b>Видов растений 13 при ориентире 25–30.</b> Это цена этапа. Расширение — <a href="rotaciya_ovoshchey.html">ротация овощей</a>,
+и она стартует только после трёх спокойных дней.
+<br><br>
+<b>Ссылки.</b> 18 продуктов ведут на поиск, а не на карточку товара — ВкусВилл сегодня дважды не ответил на запрос.
+Это нарушает наше же правило, поправлю, когда сайт будет отвечать.
+</div>
+</div>
+
+<div class="panel">
+<h2>📐 Плотность продуктов — главный инструмент</h2>
+<p style="margin:2px 0 8px">Смотри на ккал <b>на грамм того, что реально лежит в тарелке</b>. Отсюда все решения этой версии.</p>
+<table>
+<tr><th>Продукт</th><th class="q">ккал/г</th><th>200 ккал — это…</th></tr>
+<tr><td>Оливковое масло</td><td class="q">9.0</td><td>22 г</td></tr>
+<tr><td>Паста арахисовая</td><td class="q">6.0</td><td>33 г</td></tr>
+<tr><td>Хлебцы</td><td class="q">3.8</td><td>53 г</td></tr>
+<tr><td><b>Зефир обычный / мармелад</b></td><td class="q">3.2</td><td>62 г</td></tr>
+<tr><td>Хлеб, лаваш</td><td class="q">2.4–2.5</td><td>82 г</td></tr>
+<tr><td>Паста готовая</td><td class="q">1.35</td><td>148 г</td></tr>
+<tr><td><b>Рис готовый</b></td><td class="q">1.45</td><td>138 г <i>(при плотной варке 1:1.5)</i></td></tr>
+<tr><td>Картофель варёный</td><td class="q">0.8</td><td>250 г</td></tr>
+<tr><td>Овощи</td><td class="q">0.2–0.35</td><td>700 г</td></tr>
+</table>
+<h3>Семь способов добрать калории без объёма</h3>
+<ul>
+<li><b>Хлеб вместо части крупы.</b> 240 г готового риса = 280 ккал; те же 280 ккал в хлебе — 110 г. Экономия 130 г объёма.</li>
+<li><b>Варить крупу плотнее</b> (рис 1:1.5 вместо 1:2.5): те же 70–80 г сухих дадут не 240, а ~170–190 г готового.</li>
+<li><b>Масло.</b> +5 г в приём = +45 ккал при нулевом объёме, и это жир, полезный для твоих ЛПНП.</li>
+<li><b>Ореховая паста</b> 15–20 г = 90–120 ккал. До 32 г арахисовой — low-FODMAP.</li>
+<li><b>Каша на безлактозном молоке</b> вместо воды: +90 ккал без прибавки порции.</li>
+<li><b>Жидкий гейнер</b> — желудок эвакуирует его за ~30 мин, в «наелся» почти не участвует.</li>
+<li><b>Жирная рыба вместо тресковых:</b> форель 170 ккал/100 г против трески 78 — те же граммы, вдвое больше энергии.</li>
+</ul>
+</div>
+
+<div class="panel">
+<h2>🧪 Протокол тестов — что проверяем в первую очередь</h2>
+<div class="alert a-amber" style="margin-bottom:9px">
+<b>Разбор случая с картофелем и куриными ножками в соевом соусе.</b>
+Три подозреваемых, и картофель из них наименее вероятен — он low-FODMAP и обычно переносится.
+Главный кандидат — <b>соевый соус</b>: классический делают на пшенице (фруктаны), и в готовые маринады
+часто добавляют лук и чеснок. Второй — <b>жир от кожи ножек</b>: у тебя уже была реакция на 15 г масла
+поздно вечером. Целиакия исключена, но чувствительность к пшеничным фруктанам — нет, она с целиакией не связана.
+</div>
+<table>
+<tr><th>Дни</th><th>Тест</th><th>Порция</th><th>Что выясняем</th></tr>
+<tr><td>1–3</td><td>База v5 без тестов</td><td>—</td><td>точка отсчёта</td></tr>
+<tr><td>4</td><td><b>Тот же картофель + курица БЕЗ соевого соуса</b></td><td>как тогда</td><td>если чисто — виноват соус, а не еда</td></tr>
+<tr><td>7</td><td>Соевый соус отдельно</td><td>2 ч. л. к рису</td><td>подтверждение</td></tr>
+<tr><td>10</td><td>Курица с кожей</td><td>150 г</td><td>реакция на жир</td></tr>
+<tr><td>13</td><td>Изолят отдельно натощак</td><td>30 г</td><td>пьёшь каждый день, не проверялся</td></tr>
+<tr><td>16</td><td>Гречка свежесваренная</td><td>60 г сухой</td><td>дело в продукте или в дозе</td></tr>
+</table>
+<p style="margin-top:8px">Записывать: газы 0–3, вздутие 0–3 через 1–3 ч, Бристоль, и обязательно <b>размер порции</b>,
+<b>свежее или разогретое</b>, <b>что ещё было в приёме</b>.</p>
+</div>
+
+<div class="panel">
+<h2>🛒 Закупка на неделю — кликни по названию</h2>
+<table><tr><th>Продукт</th><th class="q">На 7 дней</th><th class="note2">Как готовить</th></tr><tr><td><a href="https://vkusvill.ru/search/?q=бедро+индейки" target="_blank">Бедро индейки без кожи</a></td><td class="q">350 г</td><td class="note2">тушить под крышкой 25–30 мин</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=филе+индейки" target="_blank">Филе индейки</a></td><td class="q">520 г</td><td class="note2">тушить с водой под крышкой</td></tr><tr><td><a href="https://vkusvill.ru/goods/kotlety-iz-indeyki-dieticheskie-38076.html" target="_blank">Котлеты из индейки диетические ✓</a></td><td class="q">340 г</td><td class="note2">запечь без масла сверху</td></tr><tr><td><a href="https://vkusvill.ru/goods/file-indeyki-kopcheno-varenoe-16552/" target="_blank">Филе индейки копчёно-варёное, нарезка ✓</a></td><td class="q">3 уп. по 100 г</td><td class="note2">ГОТОВОЕ, не готовить · состав: филе индейки + соль · упаковка 100 г</td></tr><tr><td><a href="https://vkusvill.ru/goods/govyadina-tushenaya-19493.html" target="_blank">Говядина тушёная</a></td><td class="q">150 г</td><td class="note2">без лука и чеснока</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=форель+стейк" target="_blank">Форель радужная, стейк</a></td><td class="q">350 г</td><td class="note2">омега-3 · плотнее трески вдвое</td></tr><tr><td><a href="https://vkusvill.ru/goods/ryba-ikra-i-moreprodukty/" target="_blank">Треска филе</a></td><td class="q">390 г</td><td class="note2">в пергаменте 180° 15–20 мин</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=тунец+натуральный" target="_blank">Тунец натуральный</a></td><td class="q">170 г</td><td class="note2">слить жидкость</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=яйцо+куриное" target="_blank">Яйцо куриное С1</a></td><td class="q">14 шт</td><td class="note2">варёное или омлет без молока</td></tr><tr><td>Изолят сывороточный (спортпит) <i>(спортпит)</i></td><td class="q">210 г</td><td class="note2">порция 30 г, на воде</td></tr><tr><td><a href="https://vkusvill.ru/goods/gerkules-ovsyanye-khlopya-400-g-1248.html" target="_blank">Геркулес овсяные хлопья</a></td><td class="q">350 г</td><td class="note2">СУХОЙ вес · варить ПЛОТНО (1:2.5)</td></tr><tr><td><a href="https://vkusvill.ru/goods/krupy-makarony-muka/krupy/" target="_blank">Рис круглозёрный</a></td><td class="q">400 г</td><td class="note2">СУХОЙ вес · варить ПЛОТНО (1:1.5)</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=макароны+без+глютена" target="_blank">Паста без глютена</a></td><td class="q">400 г</td><td class="note2">СУХОЙ вес · не разваривать</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=хлеб+здоровый+рацион" target="_blank">Хлеб «Здоровый рацион» б/глютена</a></td><td class="q">3.0 пачки</td><td class="note2">пачка 240 г → порция 120 г = полпачки</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=хлебцы" target="_blank">Хлебцы рисовые/гречневые</a></td><td class="q">141 г ≈ 47 хлебцев</td><td class="note2">1 хлебец = 3 г · 3.8 ккал/г</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=банан" target="_blank">Банан</a></td><td class="q">400 г</td><td class="note2">спелый</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=киви" target="_blank">Киви</a></td><td class="q">4 шт</td><td class="note2">90 мг витамина C на 100 г · low-FODMAP до 150 г</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=клубника" target="_blank">Клубника</a></td><td class="q">360 г</td><td class="note2"></td></tr><tr><td><a href="https://vkusvill.ru/goods/molochnye-produkty-yaytso/bezlaktoznye-produkty/" target="_blank">Молоко безлактозное</a></td><td class="q">3.0 л</td><td class="note2">варить кашу на нём вместо воды</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=морковь" target="_blank">Морковь</a></td><td class="q">360 г</td><td class="note2">варить до мягкости</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=кабачок" target="_blank">Кабачок</a></td><td class="q">420 г</td><td class="note2">тушить 8–12 мин</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=огурец" target="_blank">Огурец</a></td><td class="q">150 г</td><td class="note2">очистить от кожуры</td></tr><tr><td><a href="https://vkusvill.ru/goods/maslo-olivkovoe-extra-virgin-1213.html" target="_blank">Масло оливковое Extra Virgin</a></td><td class="q">175 г</td><td class="note2">9 ккал/г при нулевом объёме</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=паста+арахисовая" target="_blank">Паста арахисовая</a></td><td class="q">105 г</td><td class="note2">до 32 г — low-FODMAP · мажем на хлеб/в кашу</td></tr><tr><td><a href="https://vkusvill.ru/goods/zefir-vanilnyy-15200/" target="_blank">Зефир ванильный</a></td><td class="q">6 шт (246 г) — 1 пачка 250 г</td><td class="note2">1 зефирина = 41 г, не делить · пачка 250 г ≈ 6 шт</td></tr><tr><td><a href="https://vkusvill.ru/search/?q=сироп+кленовый" target="_blank">Сироп кленовый</a></td><td class="q">160 г</td><td class="note2">вместо мёда</td></tr></table>
+<p style="margin-top:9px;color:#667085;font-size:11.5px">Крупы и овсянка — сухой вес. Мясо и рыба — сырой вес до приготовления.
+Где ссылка ведёт на подборку — выбери любой товар из списка. Протеин — спортпит, не ВкусВилл.</p>
+<button class="btn" style="margin-top:10px" onclick="window.print()">🖨 Печать</button>
+</div>
+
+<div class="panel">
+<h2>Критерии успеха — сверяем через 2 недели</h2>
+<table>
+<tr><th>Что</th><th>Цель</th><th>Если не достигнуто</th></tr>
+<tr><td>Вес (среднее за 7 дней)</td><td>+0.15–0.25 кг/нед</td><td>стоит 10 дней → +150 ккал хлебом и маслом</td></tr>
+<tr><td>Талия на пупке</td><td>не растёт быстрее плеч</td><td>растёт → минус 150 ккал, начиная со сладкого</td></tr>
+<tr><td>Съедаемость</td><td>без «давиться»</td><td>дробить приём надвое через 45–60 мин</td></tr>
+<tr><td>Газы / вздутие</td><td>0–2</td><td>держится 3 → к гастроэнтерологу</td></tr>
+<tr><td>Бристоль</td><td>4</td><td>6–7 → срезать клетчатку до 12 г; 1–2 → вода + псиллиум 3–5 г</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🥄 Как отмерять без весов</h2>
+<table>
+<tr><th>Продукт</th><th class="q">В меню</th><th>Чем мерить</th></tr>
+<tr><td>Оливковое масло</td><td class="q">5 / 10 / 15 г</td><td><b>1 / 2 / 3 чайные ложки.</b> Все порции масла в меню кратны 5 г — специально, чтобы не взвешивать. Ложку набирать вровень, без горки.</td></tr>
+<tr><td>Кленовый сироп</td><td class="q">20 г</td><td><b>1 столовая ложка.</b> Сироп плотнее воды, ст. л. = 20–21 г.</td></tr>
+<tr><td>Паста арахисовая</td><td class="q">10–20 г</td><td>2–4 ч. л. вровень. Проще: 1 ч. л. ≈ 5 г.</td></tr>
+<tr><td>Зефир обычный</td><td class="q">41 г</td><td><b>1 зефирина</b> — делить не нужно.</td></tr>
+<tr><td>Хлеб «Здоровый рацион»</td><td class="q">120 г</td><td><b>полпачки</b> (в пачке 240 г).</td></tr>
+<tr><td>Крупы, мясо, рыба</td><td class="q">по граммам</td><td>Только весы: тут ошибка в 20–30 г заметно двигает калории.</td></tr>
+</table>
+<p style="margin-top:8px;color:#667085;font-size:11.5px">Ложками можно мерить то, что даёт мало калорий за раз или имеет фиксированную порцию.
+Крупу и белок — всегда весами, это основа расчёта.</p>
+</div>
+
+<div class="panel">
+<h2>🥕 Что будет, если есть больше овощей</h2>
+<p style="margin:2px 0 8px">Короткий ответ: на цель по калориям это почти не влияет, но два эффекта есть.</p>
+<ul>
+<li><b>Калории — можно не считать.</b> Морковь 35 ккал/100 г, кабачок 20. Лишние 100 г кабачка — это +20 ккал, шум.</li>
+<li><b>Клетчатка — вот это считать.</b> Морковь даёт 2.4 г на 100 г, кабачок 1 г. Мы держим клетчатку около 16 г,
+и +150 г моркови — это уже +3.6 г, то есть плюс четверть дневной нормы. При твоей чувствительности это может отозваться стулом.</li>
+<li><b>Объём.</b> Овощи — самый «пустой» объём: 700 г дают всего 200 ккал. Мы как раз с этим боролись,
+поэтому большие порции овощей работают против съедаемости остального.</li>
+<li><b>FODMAP.</b> Морковь безопасна практически в любых разумных количествах.
+А вот <b>кабачок лучше не больше 100 г за приём</b> — выше порции Monash он переходит в умеренный FODMAP по фруктанам.</li>
+</ul>
+<p style="margin-top:6px"><b>Практическое правило:</b> морковь можно добавлять свободно до +100 г в день,
+кабачок — держать в пределах 100 г на приём. Если добавил много овощей и стул поплыл — первым делом смотри на них.</p>
+</div>
+
+<div class="panel">
+<h2>ℹ️ Контекст версии и результаты ревью</h2>
+<div class="alert a-green" style="margin-bottom:9px">
+<b>✅ Целиакия исключена</b> (анти-tTG IgA &lt;2 при норме &lt;20, анти-DGP IgG 2.56 при норме &lt;10, сдано на обычном питании с глютеном).
+Кал на гельминтов и простейших — не обнаружено. Посев мочи — роста нет.
+</div>
+<div class="alert a-blue" style="margin-bottom:9px">
+<b>Что изменилось против v4.</b> Объём самого тяжёлого приёма: было 452–562 г, стало <b>344–430 г</b>.
+Как: хлеб вместо части крупы (2.5 ккал/г против 1.25) · крупа варится плотнее · каша на безлактозном молоке ·
+ореховая паста · жидкий гейнер в дни отдыха · жирная рыба вместо тресковых · овощи 50–70 г.
+</div>
+<div class="alert a-amber" style="margin-bottom:0">
+<b>🔍 Ревью версии (после сборки).</b> Клетчатка <b>16 г</b> — растворимая, из овсянки 60 г, она тобой переносится ·
+пшеничный хлеб убран, везде <b>сорговый</b> (фруктаны не проверены, целиакия тут ни при чём) ·
+<b>ветчина убрана</b> — переработанное мясо и 1000 мг натрия на 100 г, заменена своей запечённой индейкой ·
+жир на приём ≤ <b>26 г</b> · натрий <b>2136 → 1534 мг</b> · готовка: <b>2 белка в день, 4 батча на неделю</b> ·
+порции под упаковку: зефир 41 г, хлеб 120 г, масло кратно 5 г, сироп 20 г.
+<b>Проверка ВОЗ:</b> нас. жир 6.9% (&lt;10 ✓) · сахар 5.9% (&lt;10 ✓) · натрий ✓.
+Клетчатка ниже нормы ВОЗ (25 г) — осознанный временный компромисс ради ЖКТ, пересмотр через 3 недели.
+</div>
+</div>
+<div class="panel">
+<h2>➕ Чем добрать, если недоел за день</h2>
+<p style="margin:2px 0 8px"><b>Сначала главное: считай по неделе, а не по дню.</b> Один день −300 ккал не имеет значения,
+если остальные шесть в норме. Организм работает на недельном балансе. Плохо не «минус один день», а систематический недобор —
+именно он держал тебя на плато весь июль.</p>
+
+<h3>Если недобор 100–300 ккал — добери, это просто</h3>
+<table>
+<tr><th>Чем</th><th class="q">Порция</th><th class="q">Даёт</th><th class="note2">Почему подходит</th></tr>
+<tr><td>Хлеб сорговый + арахисовая паста</td><td class="q">60 г + 10 г</td><td class="q">~210 ккал</td><td class="note2">плотно, быстро, без готовки</td></tr>
+<tr><td>Зефир обычный</td><td class="q">41 г (1 шт)</td><td class="q">131 ккал</td><td class="note2">только если это второй за день — следи за сахаром</td></tr>
+<tr><td>Банан + безлактозное молоко</td><td class="q">120 г + 200 мл</td><td class="q">~205 ккал</td><td class="note2">почти без объёма, мягко для ЖКТ</td></tr>
+<tr><td>Изолят + кленовый сироп в воде</td><td class="q">30 г + 20 г</td><td class="q">~165 ккал</td><td class="note2">жидкое, уходит из желудка за 30 мин</td></tr>
+<tr><td>Оливковое масло в кашу или гарнир</td><td class="q">10 г (2 ч.л.)</td><td class="q">90 ккал</td><td class="note2">ноль объёма, ненасыщенный жир</td></tr>
+<tr><td>Хлебцы</td><td class="q">30 г (≈6 шт)</td><td class="q">114 ккал</td><td class="note2">если в этом приёме нет хлеба</td></tr>
+</table>
+
+<h3>Когда добирать НЕ надо</h3>
+<ul>
+<li><b>После 21:30</b>, если ужин был полноценный. Есть через силу на ночь — это тяжесть, плохой сон и риск симптомов ЖКТ.
+Лучше просто добавь 150–200 ккал к завтраку следующего дня.</li>
+<li><b>Если живот уже некомфортный.</b> Комфорт ЖКТ приоритетнее одного дня калорий — мы это правило не нарушаем.</li>
+<li><b>Если недобор меньше 150 ккал.</b> Это в пределах погрешности взвешивания и базы FatSecret, гнаться нет смысла.</li>
+</ul>
+<p style="margin-top:6px"><b>Правило:</b> добирать <u>плотным</u> (хлеб, паста ореховая, масло, жидкое), а не объёмным (крупа, овощи) —
+иначе не влезет. И не сладким сверх одной зефирины: сахар и так 8% энергии.</p>
+</div>
+
+<div class="panel">
+<h2>⏳ Можно ли жить на этой программе годами — честный ответ</h2>
+<div class="alert a-amber" style="margin-bottom:10px">
+<b>Нет. Это лечебно-диагностический этап на 4–8 недель, а не питание на всю жизнь.</b>
+Она хороша для текущей задачи — набрать массу, не провоцируя ЖКТ, и найти триггеры. Но в долгую у неё есть дефициты,
+и жить на ней год я бы не советовал.
+</div>
+
+<h3>Что в ней хорошо и работает в долгую</h3>
+<ul>
+<li>Насыщенный жир 7.0% энергии, натрий 1510 мг, добавленный сахар 8.0% — <b>все три в нормах ВОЗ</b>.</li>
+<li>Белок 162 г, омега-3 из форели дважды в неделю, оливковое масло как основной жир — это прямо работает на твои ЛПНП и АпоВ.</li>
+<li>Нет ультрапереработанной еды, переработанного мяса, лактозы. Кальций ≈846 мг, магний ≈419 мг — в порядке.</li>
+</ul>
+
+<h3>Три дефицита, из-за которых это временно</h3>
+<ol>
+<li><b>Клетчатка 18 г при норме ≥25.</b> Держим низкой намеренно — это единственная ручка, которая
+у тебя явно двигала симптомы. Но низкая клетчатка годами — это хуже для микробиома, липидов и здоровья кишечника.</li>
+<li><b>Разнообразие растений: 15 видов в неделю.</b> Для микробиома ориентир — около 30. Нет бобовых, крестоцветных,
+зелени, ягод кроме клубники, орехов кроме арахиса, цельных злаков. Значит мало полифенолов и фолата.</li>
+<li><b>Витамин C был 17 мг при норме 90</b> — это ревью и выявило. Уже исправлено: добавлены киви и клубника,
+стало ≈87 мг. Но сам факт показателен: узкий рацион легко даёт скрытые дефициты.</li>
+</ol>
+
+<h3>План выхода — как расширяться</h3>
+<p style="margin:2px 0 6px">Через 3–4 недели, если ЖКТ стабилен (газы ≤2, Бристоль 4), и особенно после обследования у гастроэнтеролога:</p>
+<ul>
+<li>возвращать по одному продукту раз в 3 дня, порциями по 50–75 г;</li>
+<li>клетчатку поднимать на 2–3 г в неделю, не рывком — рывок и был причиной симптомов;</li>
+<li>очередь на возврат: зелень и салат → ягоды → цитрус → цельные злаки → орехи (грецкий, миндаль) →
+крестоцветные малой порцией → бобовые в самом конце, они самые газообразующие;</li>
+<li>цель на горизонте полугода: клетчатка 25–30 г, 25–30 видов растений в неделю, тот же контроль по ВОЗ.</li>
+</ul>
+<p style="margin-top:6px;color:#667085;font-size:11.5px">Если через 3–4 недели симптомы не уходят — расширять рацион вслепую не нужно,
+это сигнал, что причина не в еде, и решать её надо с врачом.</p>
+</div>
+
+<div class="panel" style="font-size:11.5px;color:#667085">
+Расчёт по единой базе на 100 г; партии ВкусВилла могут отличаться — сверяй с этикеткой.
+Не является медицинским назначением. Целиакия исключена лабораторно; при сохраняющихся симптомах
+остаются в работе кальпротектин и дыхательный тест на СИБР — это к гастроэнтерологу.
+По пояснице (L5-S1) — невролог и письменный тренировочный протокол.
+</div>
+
+</div></body></html<div class="panel">
+<h2>🍔 Суббота — свободный приём. Как это устроено</h2>
+<div class="alert a-green" style="margin:0 0 10px">
+<b>Главная мысль: это не «читмил», а запланированная свобода выбора одного приёма.</b><br>
+Калории субботы (2560) почти не отличаются от обычного дня отдыха (2524) — то есть награда
+ничего не стоит в прогрессе. Награда в том, что <b>один приём ты выбираешь сам</b>,
+а не ешь хек с рисом.
+</div>
+<table>
+<tr><th>Что</th><th class="note2">Как</th></tr>
+<tr><td class="q">Бюджет</td><td><b>900 ккал на один приём.</b> Ориентир по составу: Б30 · Ж40 · У100.
+По твоим же логам: The Бык Бургер 839 ккал · «Вкусно и точка» Биг Спешл с картошкой и колой-зеро ≈ 900–1000.
+То есть бургер с картошкой в бюджет укладывается, двойной набор с пирожком — уже нет (31.07 вышло 1376).</td></tr>
+<tr><td class="q">Когда</td><td><b>Обед, 13:30.</b> Не ужин. Вечерняя тяжёлая еда у тебя уже дважды
+оборачивалась ночными эпизодами; после обеда есть 8 часов до сна.</td></tr>
+<tr><td class="q">Завтрак до этого</td><td><b>Плотный, не пропускать.</b> Прийти голодным — верный способ
+съесть вдвое больше бюджета. В меню в субботу завтрак специально с арахисовой пастой.</td></tr>
+<tr><td class="q">Остальной день</td><td>Строго по меню: белковый перекус и лёгкий ужин. Они уже посчитаны
+под свободный приём, добавлять ничего не надо.</td></tr>
+<tr><td class="q">Записать</td><td>В FatSecret в тот же день, честно. Иначе смысл теряется:
+неучтённый приём — это ровно то, что произошло 8–11 августа, когда мимо плана ушло 2100 ккал.</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🍨 Сорбет — можно, и вот на каких условиях</h2>
+<div class="alert a-green" style="margin:0 0 10px">
+<b>Сорбет заменяет зефир, а не добавляется к нему.</b> Это единственное правило.
+</div>
+<table>
+<tr><th>Продукт</th><th class="q">Ккал</th><th class="q">Сахар</th><th class="note2">Комментарий</th></tr>
+<tr><td>Зефир ванильный 41 г (в плане)</td><td class="q">131</td><td class="q">32 г</td><td class="note2">базовая позиция</td></tr>
+<tr><td>Сорбет малина-личи 75 г</td><td class="q">65</td><td class="q">18 г</td><td class="note2"><b>вдвое легче зефира</b> — как замена даже выгоднее</td></tr>
+<tr><td>Сорбет манго-маракуйя 75 г</td><td class="q">106</td><td class="q">17 г</td><td class="note2">тоже проходит</td></tr>
+</table>
+<div class="alert a-amber" style="margin:10px 0 0">
+Плохо было не то, что ты ел сорбет, а то, что он шёл <b>сверх</b> планового зефира. 1–2 августа так набралось
+103 и 93 г сахара за день. Если сорбет встаёт вместо зефира — по цифрам он даже лучше.
+<br><br>
+<b>Чего по-прежнему нельзя:</b> любой десерт с пометкой «без сахара» — мальтит, ксилит, сорбит, эритрит,
+изомальт, олигофруктоза. ВкусВилл помечает такие плашкой «На мальтите».
+</div>
+</div>
+
+<div class="panel">
+<h2>⚖️ Чем оплачена суббота</h2>
+<table>
+<tr><th>День</th><th class="q">V6</th><th class="q">V7</th><th class="q">Δ</th></tr>
+<tr><td>Тренировочные (Пн · Ср · Пт)</td><td class="q">2671</td><td class="q">2650</td><td class="q">−21</td></tr>
+<tr><td>Отдых (Вт · Чт · Вс)</td><td class="q">2534</td><td class="q">2524</td><td class="q">−10</td></tr>
+<tr><td><b>Суббота</b></td><td class="q">2534</td><td class="q"><b>2560</b></td><td class="q">+26</td></tr>
+<tr><td><b>Среднее за неделю</b></td><td class="q">2593</td><td class="q"><b>2578</b></td><td class="q">−15</td></tr>
+</table>
+<p style="margin:8px 0 0" class="note2">Недельное среднее даже чуть ниже, чем в V6 — и это осознанно:
+темп набора сейчас +0.64 кг/нед при цели 0.15–0.25. Профицит над поддержкой +128 ккал ≈ 0.12 кг/нед.
+Если после 10 дней фактического соблюдения темп нормализуется, вернём калории обратно.</p>
+</div>
+
+<div class="panel">
+<h2>🐟 Рыбные дни сдвинулись</h2>
+<table>
+<tr><td class="q">V6</td><td>Вт форель · Чт треска · <b>Сб тунец</b></td></tr>
+<tr><td class="q">V7</td><td>Вт форель · Чт треска · <b>Вс тунец</b></td></tr>
+</table>
+<p style="margin:8px 0 0" class="note2">Суббота освободилась под послабление, тунец переехал на воскресенье.
+Между рыбными днями по-прежнему всегда день мяса, два рыбных дня подряд не встречаются.
+Воскресный ужин — говядина тушёная, готовить не надо.</p>
+</div>
+
+<div class="alert a-blue">
+<b>❓ Что обсудить в субботу:</b><br>
+• бюджет 900 ккал — мало, нормально или много?<br>
+• суббота или всё-таки воскресенье удобнее для послабления?<br>
+• хочешь, чтобы день послабления был чуть калорийнее (+200), или пусть остаётся нейтральным по калориям?<br>
+• нужен ли второй свободный приём в неделю — например, лёгкий в среду вечером?<br>
+• возвращаем ли гречку и киноа как углеводные базы (сейчас только рис, паста, хлеб — видов растений 12 при ориентире 25)?
+</div>
+
+>
