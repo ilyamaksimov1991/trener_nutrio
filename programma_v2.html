@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Программа тренировок v2 — актуальная</title>
+<style>
+:root{--ink:#1a2330;--mut:#667085;--line:#dfe5ec;--bg:#f4f6f9;--card:#fff;
+--p:#2f6fed;--f:#e0a106;--c:#16a34a;--fb:#7c3aed;--sg:#be185d;--trn:#e8631a;--rst:#179a86;}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg);font-size:13px;line-height:1.45;}
+.wrap{max-width:1060px;margin:0 auto;padding:16px;}
+.nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.nav a{font-size:12px;font-weight:700;text-decoration:none;color:var(--mut);border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 11px;}
+.nav a.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+h1{font-size:21px;margin:0 0 3px;} .sub{color:var(--mut);font-size:13px;margin-bottom:12px;}
+.goals{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px;}
+.g{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center;}
+.g .l{font-size:10px;text-transform:uppercase;color:var(--mut);} .g .v{font-size:17px;font-weight:800;} .g .t{font-size:10.5px;color:var(--mut);}
+@media(max-width:820px){.goals{grid-template-columns:repeat(3,1fr);}}
+.alert{border-radius:11px;padding:11px 14px;font-size:12.5px;margin-bottom:11px;}
+.a-green{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;}
+.a-blue{background:#eff6ff;border:1px solid #c3ddfd;color:#1e40af;}
+.a-amber{background:#fffbeb;border:1px solid #fde68a;color:#92400e;}
+.a-red{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;}
+.grid{display:grid;grid-template-columns:1fr;gap:10px;}
+.day{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;break-inside:avoid;margin-bottom:10px;}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;color:#fff;background:var(--trn);}
+.dn{font-weight:800;font-size:15px;} .bd{font-size:10.5px;font-weight:700;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;color:var(--mut);border-bottom:2px solid var(--line);padding:5px 8px;}
+td{border-bottom:1px solid #f0f2f6;padding:6px 8px;vertical-align:top;}
+td.q{white-space:nowrap;font-weight:700;} td.n{text-align:center;color:var(--mut);width:26px;}
+.new{background:#f0fdf4;} .new td:first-child::after{content:' НОВОЕ';font-size:9px;color:var(--c);font-weight:800;}
+.chg{background:#fffbeb;}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:11px;}
+.panel h2{font-size:15px;margin:0 0 8px;}
+.note2{color:var(--mut);font-size:11.5px;}
+.pr{margin:14px 0;} .pr button{font:inherit;font-weight:700;padding:7px 15px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer;}
+@media print{body{background:#fff;} .nav,.pr{display:none;} .panel,.day{break-inside:avoid;}}
+</style></head>
+<body><div class="wrap">
+
+<div class="nav">
+<a href="index.html">← Хаб</a>
+<a class="cur" href="programma_v2.html">Программа v2</a>
+<a href="menu_nedeli_v7.html">Меню v7</a>
+<a href="rotaciya_ovoshchey.html">Ротация овощей</a>
+</div>
+
+<h1>Программа тренировок v2 — гипертрофия + безопасность поясницы</h1>
+<div class="sub">3 тренировки в неделю, A → B → C. База RIR 2–3, изоляция RIR 1–2, кор без отказа.
+Отдых: база 2–3 мин, изоляция 60–90 сек, кор 45–60 сек.</div>
+
+<div class="goals">
+<div class="g"><div class="l">Средняя дельта</div><div class="v">9</div><div class="t">было 6 · приоритет</div></div>
+<div class="g"><div class="l">Спина</div><div class="v">18</div><div class="t">вертикаль 9 · горизонт 9</div></div>
+<div class="g"><div class="l">Грудь</div><div class="v">6</div><div class="t">без изменений</div></div>
+<div class="g"><div class="l">Бицепс / трицепс</div><div class="v">4 / 5</div><div class="t">было 2 / 2</div></div>
+<div class="g"><div class="l">Кор</div><div class="v">8</div><div class="t">+ растяжка 3×нед</div></div>
+</div>
+
+<div class="grid">
+
+<section class="day"><div class="dh"><span class="dn">День A</span><span class="bd">грудь · спина · ноги · дельты</span></div>
+<table>
+<tr><th class="n">№</th><th>Упражнение</th><th class="q">План</th><th>Как делать</th></tr>
+<tr><td class="n">1</td><td><b>Жим в Смите 25–30°</b></td><td class="q">3×6–10 · RIR 2–3</td>
+<td>Контроль лопаток, без мостов через поясницу. <b>Сейчас 45 кг</b> — закрепить, пока все три подхода не дадут 10 при RIR 2.</td></tr>
+<tr><td class="n">2</td><td><b>Подтягивания нейтральным хватом</b></td><td class="q">3×6–10 · RIR 2</td>
+<td><b>Первый подход останавливать на 8 повторах, не в отказ.</b> Тянуть локтями, без рывков корпусом.
+Правило уже сработало: второй подход вырос с 6 до 7.</td></tr>
+<tr class="new"><td class="n">3</td><td><b>Тяга гантели одной рукой в упоре</b></td><td class="q">3×8–12 · RIR 2</td>
+<td><b>Замена тяги с упором грудью</b> — она делалась на том же тренажёре, что рычажная тяга в дне B.
+Опора рукой и коленом в скамью, спина параллельна полу, поясница нейтральна. Тянуть к поясу, локоть вдоль корпуса.
+Шаг гантелей 2 кг — прогрессия мелкая и удобная.</td></tr>
+<tr><td class="n">4</td><td><b>Болгарские выпады</b></td><td class="q">3×8–12 · RIR 2–3</td>
+<td>Без провала таза, корпус стабилен. Гантели не прибавлять — работаем над глубиной и техникой.</td></tr>
+<tr class="chg"><td class="n">5</td><td><b>Махи в стороны</b></td><td class="q">3×12–20 · RIR 1–2</td>
+<td><b>Пробуем 7 кг</b> (было 6 кг с 28 июня). Не поднимать плечи, темп контролировать.
+Техника здесь важнее веса: как только включаются трапеции, дельта получает меньше.</td></tr>
+<tr class="new"><td class="n">6</td><td><b>Бицепс</b></td><td class="q">2×8–12 · RIR 1–2</td>
+<td>Суперсет с Pallof Press, чтобы не удлинять тренировку.</td></tr>
+<tr><td class="n">7</td><td><b>Pallof Press</b></td><td class="q">2×12–15 · техника</td>
+<td>Анти-ротация, не силовой рекорд. Рёбра вниз, таз стабилен. Не до отказа.</td></tr>
+<tr class="chg"><td class="n">8</td><td><b>Планка</b></td><td class="q">2×20–40 сек · техника</td>
+<td>Рёбра вниз <b>и таз подкручен под себя</b> — новая подсказка, работает на наклон таза.
+Если поясница прогибается, сократить время, но сохранить форму.</td></tr>
+<tr class="new"><td class="n">9</td><td><b>Растяжка сгибателей бедра</b></td><td class="q">2×40 сек на ногу</td>
+<td>Выпад с опорой на колено. <b>Сначала подкрутить таз под себя</b>, потом мягко подать корпус вперёд.
+Не прогибать поясницу — иначе тянешь сустав, а не мышцу. Не пружинить.</td></tr>
+</table>
+</section>
+
+<section class="day"><div class="dh" style="background:var(--rst)"><span class="dn">День B</span><span class="bd">спина · плечи · задняя цепь · руки</span></div>
+<table>
+<tr><th class="n">№</th><th>Упражнение</th><th class="q">План</th><th>Как делать</th></tr>
+<tr class="chg"><td class="n">1</td><td><b>Рычажная тяга одной рукой</b></td><td class="q">3–4×8–12 · RIR 2</td>
+<td>Стабильный корпус, без скручивания поясницы. <b>100 кг стоят с 30 июня</b> — следующий шаг сразу +10 кг,
+поэтому идём через <b>4-й подход</b>: две недели 4×100, потом 110 и принимаем падение повторов.</td></tr>
+<tr><td class="n">2</td><td><b>Верхний блок нейтральным хватом</b></td><td class="q">3×8–12 · RIR 2</td>
+<td>Вторая вертикальная тяга недели. 45 кг с 7 июля — как только 12/12/12 при RIR 2, переходим на следующую плитку.</td></tr>
+<tr class="chg"><td class="n">3</td><td><b>Жим плеч в тренажёре</b></td><td class="q">3×8–12 · RIR 2–3</td>
+<td>Было 2 подхода, стало 3. Без прогиба в пояснице.</td></tr>
+<tr><td class="n">4</td><td><b>Сгибание ног лёжа</b></td><td class="q">3×10–15 · RIR 1–2</td>
+<td>Контроль амплитуды. 90 кг — не повышать, последний подход уже RIR 1.</td></tr>
+<tr><td class="n">5</td><td><b>Ягодичный мост</b></td><td class="q">3×8–12 · RIR 2</td>
+<td>Не компенсировать поясницей. <b>Работает на наклон таза</b> — сильные ягодицы тянут таз назад.
+В верхней точке подкрутить таз и задержать на секунду.</td></tr>
+<tr><td class="n">6</td><td><b>Обратная бабочка</b></td><td class="q">3×12–20 · RIR 1–2</td>
+<td>Задняя дельта. Не тянуть локтями назад через лопатки — работаем плечом.</td></tr>
+<tr class="new"><td class="n">7</td><td><b>Махи в стороны</b></td><td class="q">3×12–20 · RIR 1–2</td>
+<td><b>Третий раз в неделю.</b> Средняя дельта — главная мышца V-силуэта, а плечо не растёт месяц.
+Суперсет с обратной бабочкой.</td></tr>
+<tr class="chg"><td class="n">8</td><td><b>Трицепс</b></td><td class="q">3×8–12 · RIR 1–2</td>
+<td>Было 2 подхода, стало 3. Суперсет с боковой планкой.</td></tr>
+<tr><td class="n">9</td><td><b>Боковая планка</b></td><td class="q">2×20–40 сек · техника</td>
+<td>Таз не заваливать.</td></tr>
+<tr class="new"><td class="n">10</td><td><b>Растяжка сгибателей бедра</b></td><td class="q">2×40 сек на ногу</td>
+<td>Как в дне A. Таз подкрутить первым.</td></tr>
+</table>
+</section>
+
+<section class="day"><div class="dh" style="background:var(--fb)"><span class="dn">День C</span><span class="bd">грудь · спина · ноги · дельты · руки</span></div>
+<table>
+<tr><th class="n">№</th><th>Упражнение</th><th class="q">План</th><th>Как делать</th></tr>
+<tr><td class="n">1</td><td><b>Жим гантелей лёжа 0–15°</b></td><td class="q">3×8–12 · RIR 2</td>
+<td>Вторая доза груди. <b>Сейчас 16 кг</b> — повторить, пока все три подхода не дадут 12 при RIR 2.</td></tr>
+<tr><td class="n">2</td><td><b>Тяга нижнего блока сидя, нейтральный хват</b></td><td class="q">3×8–12 · RIR 2</td>
+<td><b>Корпус вертикальный, без отклонения назад.</b> Вес снижен до 35 кг осознанно — прогрессия начинается заново с чистой техники.</td></tr>
+<tr><td class="n">3</td><td><b>Тяга прямыми руками</b></td><td class="q">3×12–15 · RIR 1–2</td>
+<td>Для V-формы. Растёт нормально: 32.5 → 37.5.</td></tr>
+<tr><td class="n">4</td><td><b>Разгибание ног</b></td><td class="q">3×10–15 · RIR 1–2</td><td>Квадрицепс.</td></tr>
+<tr><td class="n">5</td><td><b>Сгибание ног лёжа</b></td><td class="q">2×10–15 · RIR 1–2</td><td>Бицепс бедра.</td></tr>
+<tr><td class="n">6</td><td><b>Махи в стороны</b></td><td class="q">3×12–20 · RIR 1–2</td>
+<td>Приоритет V-формы. Суперсет с тягой прямыми руками.</td></tr>
+<tr class="new"><td class="n">7</td><td><b>Бицепс</b></td><td class="q">2×8–12 · RIR 1–2</td>
+<td>Суперсет с трицепсом.</td></tr>
+<tr class="new"><td class="n">8</td><td><b>Трицепс</b></td><td class="q">2×8–12 · RIR 1–2</td>
+<td>Суперсет с бицепсом.</td></tr>
+<tr><td class="n">9</td><td><b>Pallof Press</b></td><td class="q">2×12–15 · техника</td><td>Не до отказа.</td></tr>
+<tr class="new"><td class="n">10</td><td><b>Растяжка сгибателей бедра</b></td><td class="q">2×40 сек на ногу</td>
+<td>Как в дне A.</td></tr>
+</table>
+<div class="alert a-red" style="margin:10px 12px 12px">
+<b>Пресс в тренажёре убран из программы.</b> Он стоял в плане, но не делался четыре сессии подряд —
+мёртвый пункт. И по сути: это сгибание корпуса, а при переднем наклоне таза оно нагружает
+подвздошно-поясничную мышцу, то есть ту самую, которая таз вперёд и тянет. Взамен — растяжка
+сгибателей и планка с подкрученным тазом.
+</div>
+</section>
+
+</div>
+
+<div class="panel">
+<h2>🔑 Правило прогрессии — главное изменение версии</h2>
+<div class="alert a-green" style="margin:0 0 10px">
+<b>Пока веса не двигаются, объём не имеет значения.</b> У тебя жимы растут (Смит 40 → 45, гантели 14 → 16),
+а тяги стоят по 6 недель. Причина не в лени и не в объёме — в том, что не было правила, когда прибавлять.
+</div>
+<table>
+<tr><th>Ситуация</th><th>Что делать</th></tr>
+<tr><td class="q">Обычный случай</td>
+<td><b>Все подходы дали верх диапазона при RIR 2 → следующая тренировка с новым весом.</b>
+Даже если повторы упадут до низа диапазона. Восемь повторов на новом весе лучше, чем двенадцать
+на старом четвёртый месяц.</td></tr>
+<tr><td class="q">Шаг слишком грубый<br><span class="note2">рычажная тяга: +10 кг</span></td>
+<td><b>Этап 1:</b> добавить 4-й подход на том же весе — 2 недели.<br>
+<b>Этап 2:</b> перейти на новый вес, принять падение повторов и расти в них.</td></tr>
+<tr><td class="q">Есть довесок</td>
+<td>Этап 1 не нужен: просто +1.25 или +2.5 кг. Искать по слову
+<b>«довесок для грузоблока»</b>, а не «микроблины» — под этим названием они и продаются.</td></tr>
+<tr><td class="q">Махи</td>
+<td>7 кг сейчас. Как только все три подхода дают <b>20 повторов при RIR 2</b> — переходить на 8 кг.</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>📋 Что изменилось от v1 и почему</h2>
+<table>
+<tr><th>Что</th><th>Было</th><th>Стало</th><th class="note2">Почему</th></tr>
+<tr><td class="q">Тяга с упором грудью (A)</td><td>тот же тренажёр, что рычажная в B</td>
+<td><b>тяга гантели одной рукой в упоре</b></td>
+<td class="note2">Два упражнения делались на одном тренажёре — фактически одно движение дважды.
+Плюс шаг гантелей 2 кг вместо 10, спина разгружена опорой</td></tr>
+<tr><td class="q">Махи в стороны</td><td>2 раза в неделю, 6 подходов, 6 кг с 28 июня</td>
+<td><b>3 раза, 9 подходов, 7 кг</b></td>
+<td class="note2">Средняя дельта — единственная мышца, которая делает ширину плеч.
+Плечо 114 см не двигается месяц, а объём был на нижней границе поддержания</td></tr>
+<tr><td class="q">Бицепс</td><td>2 подхода</td><td><b>4 подхода</b> (A и C)</td>
+<td class="note2">Плановый объём был 8, фактический 2</td></tr>
+<tr><td class="q">Трицепс</td><td>2 подхода</td><td><b>5 подходов</b> (B и C)</td>
+<td class="note2">Плановый объём был 7, фактический 2</td></tr>
+<tr><td class="q">Жим плеч</td><td>2 подхода</td><td>3 подхода</td><td class="note2">Дельты в приоритете</td></tr>
+<tr><td class="q">Пресс в тренажёре</td><td>в плане есть, не делается</td><td><b>убран</b></td>
+<td class="note2">Мёртвый пункт четыре сессии. И механически не помогает при наклоне таза</td></tr>
+<tr><td class="q">Растяжка сгибателей бедра</td><td>нет</td><td><b>2×40 сек после каждой</b></td>
+<td class="note2">Подвздошно-поясничная тянет таз вперёд, из-за этого низ живота выталкивается.
+80 секунд, делается в отдыхе</td></tr>
+<tr><td class="q">Планка</td><td>«рёбра вниз»</td><td>+ <b>«таз подкручен»</b></td>
+<td class="note2">То же упражнение, но работает на осанку. Ноль дополнительного времени</td></tr>
+<tr><td class="q">Правило прогрессии</td><td>не прописано</td><td><b>прописано, с вариантом на грубый шаг</b></td>
+<td class="note2">Главная причина, почему тяги стояли месяцами</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>🧍 Зачем растяжка сгибателей — механика</h2>
+<p style="margin:0 0 8px"><b>Подвздошно-поясничная мышца</b> крепится одним концом к поясничным позвонкам
+и внутренней стороне таза, другим — к бедренной кости. Когда она укорочена (а ты много сидишь,
+и это её укорачивает), она <b>тянет переднюю часть таза вниз и вперёд</b>.</p>
+<p style="margin:0 0 8px">Дальше происходят две вещи сразу: <b>поясница выгибается сильнее</b>, чтобы
+компенсировать наклон, и <b>низ живота выталкивается вперёд</b> — брюшная стенка растягивается,
+содержимое смещается. Это чистая механика, жир тут ни при чём.</p>
+<div class="alert a-amber" style="margin:0 0 8px">
+<b>Одна растяжка наклон таза не чинит.</b> Это связка из трёх частей: снять тягу спереди (растяжка) ·
+тянуть таз назад (ягодичный мост) · удержать положение (планка с подкрутом, Pallof).
+Две части уже были в программе — растяжка была недостающим куском.
+</div>
+<p style="margin:0" class="note2"><b>И вторая причина, не про внешний вид.</b> При грыже L5-S1 избыточный
+прогиб поясницы увеличивает нагрузку на задние структуры позвонка и на диск. Уменьшить наклон таза —
+это разгрузка проблемного сегмента, а не косметика.</p>
+</div>
+
+<div class="panel">
+<h2>🔴 Безопасность поясницы — не менялось</h2>
+<table>
+<tr><td class="q">Запрещено</td><td>Становая · приседы со штангой на спине · <b>жим ногами</b> (был инцидент с резкой болью) ·
+наклоны со штангой · тяжёлые жимы стоя · любое движение с круглой поясницей под весом</td></tr>
+<tr><td class="q">Потолок</td><td><b>RIR 1.</b> На отказных повторах таз раскачивается и поясница уходит
+в переразгибание — именно поэтому потолок стоит, а не из общей осторожности</td></tr>
+<tr><td class="q">Обязательно в каждой</td><td>Кор на анти-разгибание и анти-ротацию: Pallof, планка, боковая планка</td></tr>
+<tr><td class="q">Стоп-флаг</td><td>Рост боли, прострел, онемение, отдаёт в ногу → снизить нагрузку и к неврологу.
+Не геройствовать</td></tr>
+<tr><td class="q">Статус</td><td><b>10 недель подряд без осевой нагрузки и без записей о боли.</b> Так и держим</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>📊 Недельный объём: v1 → v2</h2>
+<table>
+<tr><th>Группа</th><th class="q">План v1</th><th class="q">Факт по v1</th><th class="q">v2</th><th class="note2">Комментарий</th></tr>
+<tr><td><b>Средняя дельта</b></td><td class="q">6</td><td class="q">6</td><td class="q"><b>9</b></td>
+<td class="note2">приоритет по цели V-силуэта</td></tr>
+<tr><td>Спина всего</td><td class="q">15–18</td><td class="q">18</td><td class="q">18</td>
+<td class="note2">не наращиваем: проблема не в объёме, а в том, что вес стоял</td></tr>
+<tr><td>Грудь</td><td class="q">6</td><td class="q">6</td><td class="q">6</td><td class="note2">растёт нормально</td></tr>
+<tr><td><b>Бицепс</b></td><td class="q">8</td><td class="q">2</td><td class="q"><b>4</b></td>
+<td class="note2">компромисс: до 8 сессия станет слишком длинной</td></tr>
+<tr><td><b>Трицепс</b></td><td class="q">7</td><td class="q">2</td><td class="q"><b>5</b></td><td class="note2">—</td></tr>
+<tr><td>Задняя дельта</td><td class="q">3</td><td class="q">3</td><td class="q">3</td><td class="note2">—</td></tr>
+<tr><td>Квадрицепс</td><td class="q">6</td><td class="q">6</td><td class="q">6</td><td class="note2">—</td></tr>
+<tr><td>Бицепс бедра</td><td class="q">5</td><td class="q">6</td><td class="q">5</td><td class="note2">—</td></tr>
+<tr><td>Ягодицы</td><td class="q">6</td><td class="q">3</td><td class="q">3</td><td class="note2">плюс болгарские выпады косвенно</td></tr>
+<tr><td>Кор</td><td class="q">10</td><td class="q">8</td><td class="q">8</td>
+<td class="note2">пресс убран осознанно, добавлена растяжка 3 раза в неделю</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>⚠️ Отдельно: дни тренировок и дни питания разъехались</h2>
+<p style="margin:0 0 8px">Меню v7 кормит по повышенной калорийности в <b>понедельник, среду и пятницу</b>.
+А по журналу ты тренируешься <b>в воскресенье, вторник и четверг</b>: 09.08 · 11.08 · 13.08 · 16.08.</p>
+<p style="margin:0"><b>То есть тренировочные калории попадают не на те дни.</b> Это стоит поправить —
+либо сдвинуть тренировки на Пн/Ср/Пт, либо переставить дни в меню. Второе я сделаю за минуту,
+скажи, какой график тебе реально удобнее.</p>
+</div>
+
+<div class="pr"><button onclick="window.print()">🖨 Распечатать</button></div>
+
+<div class="note2" style="margin-bottom:20px">
+Это тренировочный план, не медицинское назначение. При боли в пояснице, простреле или онемении —
+очный невролог или реабилитолог. Программа дополняет работу с живым тренером, а не заменяет её.
+</div>
+
+</div></body></html>
